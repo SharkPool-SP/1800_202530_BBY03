@@ -59,7 +59,7 @@ elmo-hikes/
 
 
 ## Contributors
-- **Your Name** - BCIT CST Student with a passion for outdoor adventures and user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
+- Shirin Sajeeb - BCIT CST  student passionate about coding and creative projects.
 - **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
 - **Vicente G** *(SharkPool-SP)*- BCIT CST Student, 3+ years of Web Dev experience. Fun Fact: Likes camping in Harrison Hot Springs
 
