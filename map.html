@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Map</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Map</title>
 
-  <!-- Header -->
-  <header>
-    <h1>Campus Map</h1>
-    <button>Update Location</button>
-  </header>
+    <!-- CSS -->
+    <link href="src/css/default.css" rel="stylesheet" />
+    <link href="src/css/map.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Main Content -->
+    <profile-nav></profile-nav>
 
-  <!-- Map -->
-  <main>
-    <img src="images/bcitmap.jpg" alt="">
-  </main>
+    <div class="content">
+      <h1>TODO FINISH</h1>
+      <div class="map-display">
+        <img
+          src="images/campus-map-bby.svg"
+          draggable="false"
+          alt="campus map"
+        />
+      </div>
+      <div class="map-controls">
+        <button>Update Location</button>
+      </div>
+    </div>
 
-  <!-- Bottom Navigation -->
-  <footer>
-    <button>💬</button>
-    <button>🗺️</button>
-    <button>👤</button>
-  </footer>
+    <!-- Navigation -->
+    <clustr-navbar tab="map" />
 
-</body>
+    <!-- Scripts -->
+    <script src="src/js/Events.js"></script>
+    <script src="src/components/navbar.js" type="module"></script>
+    <script src="src/components/profileIcon.js" type="module"></script>
+    <script src="src/js/map.js" type="module"></script>
+  </body>
 </html>
