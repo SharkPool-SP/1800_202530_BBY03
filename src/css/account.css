@@ -1,0 +1,95 @@
+header h1 {
+  width: 100%;
+  background: var(--theme-value-dark);
+  margin: 0 0 15px 0;
+  padding: 20px 0;
+  text-align: center;
+}
+header .back-btn {
+  background: transparent;
+  border: none;
+  margin: 20px 10px;
+  position: absolute;
+  transition: transform 150ms ease-in-out;
+  filter: var(--theme-hue);
+}
+header .back-btn:hover {
+  transform: scale(1.15);
+}
+header .back-btn img {
+  width: 75%;
+}
+
+.content {
+  padding: 0 30px;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+.content-holder {
+  display: flex;
+  width: max-content;
+  max-width: 75%;
+  height: 100%;
+  background: var(--theme-value-dark);
+  border-radius: 10px;
+  padding: 15px 5px;
+}
+
+.content-holder .profile-pic {
+  display: flex;
+  align-items: center;
+}
+.content-holder .profile-pic img {
+  width: 30%;
+  border-radius: 8px;
+  margin: 0 10px;
+}
+.content-holder .profile-pic button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  padding: 10px 0;
+  margin-left: 20px;
+  border-radius: 12px;
+  border: none;
+  background: #fff;
+  font-size: large;
+  font-weight: bold;
+  font-family: "Amble-Bold", Arial;
+  transition: transform 150ms ease-in-out, box-shadow 150ms ease-in-out;
+}
+.content-holder .profile-pic button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3.5px var(--theme-value);
+}
+.content-holder .profile-pic button img {
+  filter: brightness(0);
+  width: 10%;
+  border-radius: 0;
+  margin-left: 0;
+}
+.content-holder .profile-pic input {
+  display: none;
+}
+
+.content-holder .theme-btn {
+  margin: 0 10px;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  box-shadow: inset 0 0 0 3.5px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 150ms ease-in-out;
+  font-weight: bold;
+  font-family: Arial;
+}
+.content-holder .theme-btn:hover {
+  box-shadow: inset 0 0 0 3.5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.75);
+}
+.content-holder .theme-btn[selected="true"] {
+  border: rgba(255, 255, 255, 0.5) solid 3px;
+}

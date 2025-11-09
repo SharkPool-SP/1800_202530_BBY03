@@ -15,16 +15,26 @@
     <profile-nav></profile-nav>
 
     <div class="content">
-      <h1>TODO FINISH</h1>
-      <div class="map-display">
-        <img
-          src="images/campus-map-bby.svg"
-          draggable="false"
-          alt="campus map"
-        />
-      </div>
       <div class="map-controls">
-        <button>Update Location</button>
+        <div class="zoom-controls">
+          <button id="plus" title="Zoom In">+</button>
+          <button id="minus" title="Zoom Out">-</button>
+          <button id="reset" title="Center">=</button>
+        </div>
+        <div class="update-location">
+          <button>Update My Location</button>
+        </div>
+      </div>
+      <div class="map-dragger"></div>
+      <div class="map-display">
+        <div>
+          <img
+            src="images/campus-map-bby.svg"
+            draggable="false"
+            alt="campus map"
+          />
+          <div id="user-marker"></div>
+        </div>
       </div>
     </div>
 

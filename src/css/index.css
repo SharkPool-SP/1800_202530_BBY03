@@ -1,9 +1,11 @@
+/* Reset default margin/padding */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body styling */
 body {
   font-family: Arial, sans-serif;
   display: flex;
@@ -15,18 +17,20 @@ body {
   padding: 20px;
 }
 
+/* Logo styling */
 .logo {
-  width: 120px;
-  height: auto;
+  width: 120px; /* optional, controls max width of container */
+  height: auto; /* let height scale with image */
   margin-bottom: 20px;
 }
 
 .logo img {
-  width: 100%;
-  height: auto;
+  width: 100%; /* scales image to container width */
+  height: auto; /* maintain aspect ratio */
   display: block;
 }
 
+/* Headings and paragraph */
 h1 {
   font-size: 24px;
   text-align: center;
@@ -40,6 +44,7 @@ p {
   max-width: 300px;
 }
 
+/* Home page buttons */
 .buttons {
   display: flex;
   gap: 15px;
@@ -60,6 +65,7 @@ p {
   background-color: #0056b3;
 }
 
+/* Login page container */
 .login-container {
   max-width: 350px;
   margin: 50px auto;
@@ -113,6 +119,7 @@ p {
   background-color: #0056b3;
 }
 
+/* Mobile adjustments */
 @media (max-width: 400px) {
   h1 {
     font-size: 20px;
