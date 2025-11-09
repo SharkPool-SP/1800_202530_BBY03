@@ -1,8 +1,29 @@
+// TODO improve this
 class NavBar extends HTMLElement {
   connectedCallback() {
     const selectedTab = this.getAttribute("tab");
     this.innerHTML = `
       <style>
+        @media screen and (min-width: 1300px) {
+          .clustr-navbar button img {
+            margin-right: 15px;
+            width: 10% !important;
+          }
+          .clustr-navbar button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(15px, 20px, 3vw) !important;
+          }
+        }
+        .clustr-navbar-back {
+          background: var(--theme-value);
+          position: absolute;
+          bottom: -7%;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+        }
         .clustr-navbar {
           width: 100%;
           display: flex;
@@ -11,12 +32,12 @@ class NavBar extends HTMLElement {
           background: rgba(0, 0, 0, .2);
           position: absolute;
           bottom: 0px;
+          z-index: 999;
         }
         .clustr-navbar button {
           font-family: "Amble-Bold", Arial;
           font-weight: bold;
           font-size: clamp(10px, 16px, 3vw);
-          display: block;
           color: var(--theme-text);
           width: 100%;
           border: none;
@@ -52,6 +73,7 @@ class NavBar extends HTMLElement {
           <img src="images/icon-friends.svg" draggable="false" alt="Friends" />
           <div>Friends</div>
         </button>
+        <div class="clustr-navbar-back"></div>
       </div>
     `;
 

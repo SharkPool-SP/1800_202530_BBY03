@@ -14,7 +14,9 @@
 
 body {
   --theme-hue: hue-rotate(250deg) brightness(25%);
+  --theme-hue-norm: hue-rotate(250deg);
   --theme-value: #6200ff;
+  --theme-value-dark: #2a006e;
   --theme-text: #fff;
 
   margin: 0px;
