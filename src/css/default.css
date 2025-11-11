@@ -13,8 +13,12 @@
 }
 
 body {
-  --theme-hue: hue-rotate(250deg) brightness(25%);
-  --theme-value: #6200ff;
+  --theme-hue: invert(1) saturate(0) contrast(2);
+  --theme-hue-norm: saturate(0);
+  --theme-hue-map: hue-rotate(285deg);
+  --theme-value: #ae00ff;
+  --theme-value-dark: #7c02b5;
+  --theme-value-light: #c038ff;
   --theme-text: #fff;
 
   margin: 0px;

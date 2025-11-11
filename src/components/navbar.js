@@ -1,35 +1,48 @@
+// TODO improve this
 class NavBar extends HTMLElement {
   connectedCallback() {
     const selectedTab = this.getAttribute("tab");
     this.innerHTML = `
       <style>
+        @media screen and (min-width: 1300px) {
+          .clustr-navbar button img {
+            margin-right: 15px;
+            width: 10% !important;
+          }
+          .clustr-navbar button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(15px, 20px, 3vw) !important;
+          }
+        }
         .clustr-navbar {
           width: 100%;
           display: flex;
-          border-top: 1.5px solid rgba(0, 0, 0, .5);
-          font-family: sans-serif;
-          background: rgba(0, 0, 0, .2);
-          position: absolute;
+          position: fixed;
           bottom: 0px;
+          z-index: 999;
         }
         .clustr-navbar button {
           font-family: "Amble-Bold", Arial;
           font-weight: bold;
           font-size: clamp(10px, 16px, 3vw);
-          display: block;
           color: var(--theme-text);
           width: 100%;
           border: none;
           padding: 10px 0;
-          background: transparent;
+          background: var(--theme-value-dark);
+          border-top: 3px solid rgba(0, 0, 0, .5);
+          border-left: 1.5px dotted rgba(0, 0, 0, .5);
+          border-right: 1.5px dotted rgba(0, 0, 0, .5);
           cursor: pointer;
+          transition: background 100ms ease-in-out;
         }
         .clustr-navbar button:hover {
-          background: rgba(255, 255, 255, .2);
+          background: var(--theme-value);
         }
         .clustr-navbar button[selected="true"] {
-          background: rgba(255, 255, 255, .4);
-          filter: saturate(3);
+          background:  var(--theme-value-light);
         }
         .clustr-navbar div {
           margin: 5px 0;

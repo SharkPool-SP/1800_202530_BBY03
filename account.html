@@ -5,62 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/logo-color.svg" type="image/svg" />
     <title>Profile Settings</title>
+
+    <!-- CSS -->
+    <link href="src/css/default.css" rel="stylesheet" />
+    <link href="src/css/account.css" rel="stylesheet" />
   </head>
   <body>
     <header>
-      <button>←</button>
+      <button class="back-btn" title="Back to Home">
+        <a href="map.html">
+          <img draggable="false" alt="Back" src="images/arrow.svg" />
+        </a>
+      </button>
       <h1>Profile Settings</h1>
     </header>
 
-    <hr />
+    <div class="content">
+      <section>
+        <h2>Profile Picture</h2>
+        <div class="content-holder">
+          <div class="profile-pic">
+            <img src="images/default-avatar.svg" draggable="true" alt="pfp" />
+            <button>
+              <img draggable="false" alt="upload" src="images/upload.svg" />
+              <span>Upload Photo</span>
+            </button>
+            <input type="file" />
+          </div>
+        </div>
+      </section>
 
-    <section>
-      <h2>Profile Picture</h2>
-      <img
-        src="images/profile.png"
-        alt="Profile Picture"
-        width="100"
-        height="100"
-      />
-      <button>Upload Photo</button>
-    </section>
+      <!-- Username -->
+      <section>
+        <h2>Username</h2>
+        <div class="content-holder">
+          <div class="editable-field" id="name">
+            <button class="edit">
+              <img draggable="false" alt="edit" src="images/edit.svg" />
+            </button>
+            <input type="text" placeholder="John Smith" />
+          </div>
+        </div>
+      </section>
 
-    <!-- Username -->
-    <section>
-      <h2>Username</h2>
-      <p>✏️ John Smith</p>
-    </section>
+      <!-- About Me -->
+      <section>
+        <h2>About Me</h2>
+        <div class="content-holder">
+          <div class="editable-field" id="desc">
+            <button class="edit">
+              <img draggable="false" alt="edit" src="images/edit.svg" />
+            </button>
+            <textarea placeholder="I am a student at BCIT!"></textarea>
+          </div>
+        </div>
+      </section>
 
-    <!-- About Me -->
-    <section>
-      <h2>About Me</h2>
-      <p>✏️ ...</p>
-    </section>
+      <!-- Program -->
+      <section>
+        <h2>Program</h2>
+        <div class="content-holder">
+          <select class="campus-select" disabled>
+            <option>Burnaby</option>
+            <option>Downtown</option>
+          </select>
 
-    <!-- Program -->
-    <section>
-      <h2>Program</h2>
-      <select>
-        <option>CST (Computer Systems Technology)</option>
-        <option>ECE (Electronics and Computer Engineering)</option>
-        <option>BFIT (Business Information Technology)</option>
-      </select>
-    </section>
+          <!-- account.js expands this -->
+          <input
+            type="text"
+            list="programs"
+            class="program-select"
+            placeholder="Other..."
+          />
+          <datalist class="program-select" id="programs"></datalist>
+        </div>
+      </section>
 
-    <!-- Notifications -->
-    <section>
-      <h2>Notifications</h2>
-      <p>
-        Keeping this enabled allows you to... lorem ipsum or however you spell
-        it
-      </p>
-      <input type="checkbox" checked />
-    </section>
+      <!-- Theme -->
+      <section>
+        <h2>Theme</h2>
+        <!-- account.js expands this -->
+        <div class="content-holder">
+          <button class="theme-btn"></button>
+        </div>
+      </section>
 
-    <!-- Theme -->
-    <section>
-      <h2>Theme</h2>
-      <p>[ Theme color options go here ]</p>
-    </section>
+      <!-- Save -->
+      <button class="save-changes" disabled="true">Save Changes</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="src/js/Events.js"></script>
+    <script src="src/js/account.js" type="module"></script>
+    <script src="src/components/navbar.js" type="module"></script>
   </body>
 </html>
