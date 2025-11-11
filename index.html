@@ -3,23 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="src/css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="src/css/index.css" />
     <link rel="icon" href="images/logo-color.svg" type="image/svg" />
-
-    <title>Home Page</title>
+    <title>Campus Connect - Home</title>
   </head>
   <body>
-    <div id="Wrapper"></div>
-    <div class="logo"><img src="images/logo.png" alt="mike" /></div>
-    <h1>Welcome</h1>
-    <p>
-      This is an app that makes studying fun, create meetups for socializing or
-      studying and locate eachother on campus!
-    </p>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <img src="images/logo-color.svg" alt="Clustr Logo" />
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#about" class="nav-link">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a href="#team" class="nav-link">Our Team</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="signup.html" class="nav-link signup-btn">Sign Up</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
 
-    <div class="buttons">
-      <a href="login.html">Login</a>
-      <a href="signup.html">Sign Up</a>
-    </div>
+    <main class="main-content">
+      <div class="hero-section">
+        <div class="hero-content">
+          <div class="logo-hero">
+            <img src="images/logo-color.svg" alt="Clustr logos" />
+          </div>
+          <h1>Welcome to Clustr</h1>
+          <p class="hero-description">
+            This is an app that makes studying fun, create meetups for
+            socializing or studying and locate each other on campus!
+          </p>
+          <div class="buttons">
+            <a href="login.html" class="btn btn-primary">Login</a>
+            <a href="signup.html" class="btn btn-secondary">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="src/js/navigation.js"></script>
   </body>
 </html>

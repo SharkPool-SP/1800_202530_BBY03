@@ -1,145 +1,223 @@
-/* Reset default margin/padding */
+@font-face {
+  font-family: "Amble-Bold";
+  src: url("/fonts/Amble-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body styling */
+:root {
+  --primary-color: #8b5fbf;
+  --primary-dark: #6a3093;
+  --primary-light: #9d6bcc;
+  --secondary-color: #b19cd9;
+  --secondary-dark: #9370db;
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --white: #ffffff;
+  --shadow: 0 2px 10px rgba(139, 95, 191, 0.15);
+  --border-radius: 8px;
+  --gradient-primary: linear-gradient(135deg, #8b5fbf 0%, #6a3093 100%);
+  --gradient-secondary: linear-gradient(135deg, #b19cd9 0%, #9370db 100%);
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Amble-Bold";
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.navbar {
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px;
+  height: 70px;
 }
 
-/* Logo styling */
-.logo {
-  width: 120px; /* optional, controls max width of container */
-  height: auto; /* let height scale with image */
-  margin-bottom: 20px;
+.nav-logo {
+  margin-right: auto;
+  padding-right: 90px;
 }
 
-.logo img {
-  width: 100%; /* scales image to container width */
-  height: auto; /* maintain aspect ratio */
+.nav-logo img {
+  height: 40px;
+  width: auto;
   display: block;
 }
 
-/* Headings and paragraph */
-h1 {
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-p {
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 30px;
-  max-width: 300px;
-}
-
-/* Home page buttons */
-.buttons {
+.nav-menu {
   display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+.login-btn {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.login-btn:hover {
+  background: var(--gradient-primary);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 95, 191, 0.3);
+}
+
+.signup-btn {
+  background: var(--gradient-primary);
+  color: var(--white);
+  border: 2px solid transparent;
+}
+
+.signup-btn:hover {
+  background: var(--gradient-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 95, 191, 0.3);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-color);
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.hamburger:hover .bar {
+  background-color: var(--primary-color);
+}
+
+.main-content {
+  margin-top: 70px;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.buttons a {
-  text-decoration: none;
-  padding: 12px 25px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 6px;
-  transition: background-color 0.3s;
+.hero-section {
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 20px;
 }
 
-.buttons a:hover {
-  background-color: #0056b3;
-}
-
-/* Login page container */
-.login-container {
-  max-width: 350px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
+.hero-content {
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.login-container h1,
-.login-container h2 {
-  margin-bottom: 10px;
+.logo-hero {
+  width: 150px;
+  height: auto;
+  margin: 0 auto 30px;
 }
 
-.login-container p {
+.logo-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1 {
+  font-size: 2.5rem;
   margin-bottom: 20px;
-  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 700;
 }
 
-.login-container form {
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: var(--secondary-color);
+  line-height: 1.8;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.login-container label {
-  text-align: left;
-  font-size: 14px;
+.btn {
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  min-width: 140px;
+  border: 2px solid transparent;
 }
 
-.login-container input {
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(139, 95, 191, 0.3);
 }
 
-.login-container button {
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.btn-primary:hover {
+  background: var(--gradient-secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 95, 191, 0.4);
 }
 
-.login-container button:hover {
-  background-color: #0056b3;
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
-/* Mobile adjustments */
-@media (max-width: 400px) {
-  h1 {
-    font-size: 20px;
-  }
-
-  p {
-    font-size: 14px;
-  }
-
-  .buttons a {
-    padding: 10px 20px;
-  }
-
-  .login-container {
-    margin: 20px;
-    padding: 15px;
-  }
-
-  .page-container {
-    margin: 20px;
-    padding: 15px;
-  }
+.btn-secondary:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 95, 191, 0.3);
 }
