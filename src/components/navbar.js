@@ -16,21 +16,10 @@ class NavBar extends HTMLElement {
             font-size: clamp(15px, 20px, 3vw) !important;
           }
         }
-        .clustr-navbar-back {
-          background: var(--theme-value);
-          position: absolute;
-          bottom: -7%;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-        }
         .clustr-navbar {
           width: 100%;
           display: flex;
-          border-top: 1.5px solid rgba(0, 0, 0, .5);
-          font-family: sans-serif;
-          background: rgba(0, 0, 0, .2);
-          position: absolute;
+          position: fixed;
           bottom: 0px;
           z-index: 999;
         }
@@ -42,15 +31,18 @@ class NavBar extends HTMLElement {
           width: 100%;
           border: none;
           padding: 10px 0;
-          background: transparent;
+          background: var(--theme-value-dark);
+          border-top: 3px solid rgba(0, 0, 0, .5);
+          border-left: 1.5px dotted rgba(0, 0, 0, .5);
+          border-right: 1.5px dotted rgba(0, 0, 0, .5);
           cursor: pointer;
+          transition: background 100ms ease-in-out;
         }
         .clustr-navbar button:hover {
-          background: rgba(255, 255, 255, .2);
+          background: var(--theme-value);
         }
         .clustr-navbar button[selected="true"] {
-          background: rgba(255, 255, 255, .4);
-          filter: saturate(3);
+          background:  var(--theme-value-light);
         }
         .clustr-navbar div {
           margin: 5px 0;
@@ -73,7 +65,6 @@ class NavBar extends HTMLElement {
           <img src="images/icon-friends.svg" draggable="false" alt="Friends" />
           <div>Friends</div>
         </button>
-        <div class="clustr-navbar-back"></div>
       </div>
     `;
 

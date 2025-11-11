@@ -40,7 +40,7 @@ body {
   top: 0px;
 }
 .map-display img {
-  filter: var(--theme-hue-norm);
+  filter: var(--theme-hue-map);
   width: 100%;
 }
 
