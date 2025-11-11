@@ -25,7 +25,7 @@
         <h2>Profile Picture</h2>
         <div class="content-holder">
           <div class="profile-pic">
-            <img src="images/default-avatar.svg" draggable="false" alt="pfp" />
+            <img src="images/default-avatar.svg" draggable="true" alt="pfp" />
             <button>
               <img draggable="false" alt="upload" src="images/upload.svg" />
               <span>Upload Photo</span>
@@ -40,7 +40,9 @@
         <h2>Username</h2>
         <div class="content-holder">
           <div class="editable-field" id="name">
-            <img draggable="false" alt="edit" src="images/edit.svg" />
+            <button class="edit">
+              <img draggable="false" alt="edit" src="images/edit.svg" />
+            </button>
             <input type="text" placeholder="John Smith" />
           </div>
         </div>
@@ -51,8 +53,10 @@
         <h2>About Me</h2>
         <div class="content-holder">
           <div class="editable-field" id="desc">
-            <img draggable="false" alt="edit" src="images/edit.svg" />
-            <textarea placeholder="John Smith"></textarea>
+            <button class="edit">
+              <img draggable="false" alt="edit" src="images/edit.svg" />
+            </button>
+            <textarea placeholder="I am a student at BCIT!"></textarea>
           </div>
         </div>
       </section>
@@ -65,28 +69,15 @@
             <option>Burnaby</option>
             <option>Downtown</option>
           </select>
-          <select class="program-select">
-            <option>CST (Computer Systems Technology)</option>
-            <option>ECE (Electronics and Computer Engineering)</option>
-            <option>BFIT (Business Information Technology)</option>
-          </select>
-        </div>
-      </section>
 
-      <!-- Notifications -->
-      <section>
-        <h2>Notifications</h2>
-        <div class="content-holder">
-          <div class="editable-field" id="notif">
-            <input type="checkbox" checked />
-            <span>Notifications Enabled</span>
-            <div>
-              <i>
-                Keeping this enabled allows you to... lorem ipsum or however you
-                spell it
-              </i>
-            </div>
-          </div>
+          <!-- account.js expands this -->
+          <input
+            type="text"
+            list="programs"
+            class="program-select"
+            placeholder="Other..."
+          />
+          <datalist class="program-select" id="programs"></datalist>
         </div>
       </section>
 
@@ -98,13 +89,14 @@
           <button class="theme-btn"></button>
         </div>
       </section>
+
+      <!-- Save -->
+      <button class="save-changes" disabled="true">Save Changes</button>
     </div>
 
     <!-- Scripts -->
     <script src="src/js/Events.js"></script>
     <script src="src/js/account.js" type="module"></script>
-
-    <clustr-navbar tab="map" />
     <script src="src/components/navbar.js" type="module"></script>
   </body>
 </html>
