@@ -21,7 +21,6 @@ const changedData = {
   campus: null,
   pfp: null,
 };
-window.test = changedData;
 
 function dataChanged(key, newValue) {
   // normalize
@@ -120,7 +119,6 @@ function initAll() {
     compressPFP(buffer, (base64) => {
       if (!base64) return;
       profileImg.src = base64;
-      window.test = base64;
       dataChanged("pfp", base64.split(",")[1]);
     });
   });
