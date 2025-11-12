@@ -1,7 +1,21 @@
+import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-/* utilities for this site */
+/* Firebase Configuration */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+/* Utility functions */
 function getZoom() {
   const root = document.body;
   const zoom = getComputedStyle(root).getPropertyValue("--map-zoom");
@@ -16,8 +30,6 @@ function getMapPosition(mapDiv) {
 
 function getMapBounds(mapDiv) {
   const rect = mapDiv.getBoundingClientRect();
-
-  // let the padding be (3 - zoom) * 50
   const zoom = getZoom();
   const padding = (7 - zoom) * 50;
   return {
@@ -32,12 +44,12 @@ function clamp(min, max, value) {
   return Math.min(max, Math.max(min, value));
 }
 
+/* Main Initialization */
 function initAll() {
-  /*
-    Map Dragger Code
-  */
   const mapDiv = document.querySelector(".map-display").firstElementChild;
   const mapDragger = document.querySelector(".map-dragger");
+
+  /* 🖱️ Map Dragger */
   mapDragger.addEventListener("mousedown", (e) => {
     e.stopPropagation();
 
@@ -57,8 +69,6 @@ function initAll() {
 
     const mouseUpEvent = (e) => {
       e.stopPropagation();
-
-      // remove listeners
       mapDragger.removeEventListener("mouseup", mouseUpEvent);
       mapDragger.removeEventListener("mousemove", mouseMoveEvent);
     };
@@ -67,10 +77,7 @@ function initAll() {
     mapDragger.addEventListener("mousemove", mouseMoveEvent);
   });
 
-  /*
-    Zoom Controls
-    TODO save zoom to account or localStorage
-  */
+  /* 🔍 Zoom Controls */
   const zoomDiv = document.querySelector(".zoom-controls");
   zoomDiv.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -80,7 +87,7 @@ function initAll() {
 
     const mapPos = getMapPosition(mapDiv);
     let currentZoom = getZoom();
-    let newZoom;
+    let newZoom = currentZoom;
 
     switch (button.id) {
       case "plus":
@@ -101,13 +108,9 @@ function initAll() {
     mapDiv.style.top = mapPos[1] * (newZoom / currentZoom) + "px";
   });
 
-  /*
-    Location Updater
-    TODO
-  */
-
-  const db = getFirestore();
-  const auth = getAuth();
+  /* 📍 Location Updater */
+  // const db = getFirestore();
+  // const auth = getAuth();
   const updateLocBtn = document.querySelector(".update-location button");
 
   updateLocBtn.addEventListener("click", (e) => {
@@ -121,18 +124,18 @@ function initAll() {
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const { latitude, longitude } = pos.coords;
-        console.log("User location:", latitude, longitude);
+        console.log("📍 User GPS location:", latitude, longitude);
 
-        // --- TODO #1: Define campus GPS boundaries ---
-        //Example:
-        // const campusBounds = {
-        //   latMin: 49.249,
-        //   latMax: 49.2525,
-        //   lonMin: -123.002,
-        //   lonMax: -122.9955,
-        // };
+        // Define campus GPS boundaries (recalibrated)
+        const campusBounds = {
+          latMin: 49.2490,   // South edge
+          latMax: 49.2530,   // North edge
+          lonMin: -123.0135, // West edge (NW1)
+          lonMax: -123.1005, // East edge (SE40 area)
+        };
 
-        // --- TODO #2: Convert GPS -> map coordinates ---
+
+        // Convert GPS to map %
         const xPercent =
           ((longitude - campusBounds.lonMin) /
             (campusBounds.lonMax - campusBounds.lonMin)) *
@@ -143,40 +146,78 @@ function initAll() {
               (campusBounds.latMax - campusBounds.latMin)) *
           100;
 
-        // --- TODO #3: Display visible marker on map ---
+        console.log("📊 Calculated percentages (before clamp):");
+        console.log("  X:", xPercent.toFixed(2) + "%");
+        console.log("  Y:", yPercent.toFixed(2) + "%");
+        
+        // Check if within bounds
+        const isInBounds = 
+          latitude >= campusBounds.latMin && 
+          latitude <= campusBounds.latMax &&
+          longitude >= campusBounds.lonMin && 
+          longitude <= campusBounds.lonMax;
+        
+        console.log("✅ Within BCIT campus bounds:", isInBounds);
+        
+        if (!isInBounds) {
+          console.warn("⚠️ You are not currently at BCIT campus!");
+          console.log("Distance from campus center:");
+          const centerLat = (campusBounds.latMin + campusBounds.latMax) / 2;
+          const centerLon = (campusBounds.lonMin + campusBounds.lonMax) / 2;
+          const latDiff = Math.abs(latitude - centerLat);
+          const lonDiff = Math.abs(longitude - centerLon);
+          console.log(`  Lat diff: ${(latDiff * 111).toFixed(2)} km`);
+          console.log(`  Lon diff: ${(lonDiff * 85).toFixed(2)} km`);
+        }
+
+        const clampPercent = (val) => Math.min(100, Math.max(0, val));
+
+        // Get or create user marker
         let marker = document.getElementById("user-marker");
         if (!marker) {
           marker = document.createElement("div");
           marker.id = "user-marker";
-          marker.style.position = "absolute";
-          marker.style.width = "20px";
-          marker.style.height = "20px";
-          marker.style.background = "red";
-          marker.style.border = "2px solid white";
-          marker.style.borderRadius = "50%";
-          marker.style.transform = "translate(-50%, -50%)";
-          marker.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
-          document.querySelector(".map-display div").appendChild(marker);
+          mapDiv.appendChild(marker);
         }
 
-        marker.style.left = `${xPercent}%`;
-        marker.style.top = `${yPercent}%`;
-        marker.style.display = "block";
+        // Apply consistent styling with higher z-index and pointer-events
+        Object.assign(marker.style, {
+          position: "absolute",
+          width: "20px",
+          height: "20px",
+          background: "red",
+          border: "2px solid white",
+          borderRadius: "50%",
+          transform: "translate(-50%, -50%)",
+          boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+          zIndex: "9999",
+          display: "block",
+          pointerEvents: "none",
+          left: `${clampPercent(xPercent)}%`,
+          top: `${clampPercent(yPercent)}%`,
+        });
 
-        // --- TODO #4: Save location to Firestore ---
+        console.log("✨ Marker placed at:", clampPercent(xPercent).toFixed(2) + "%, " + clampPercent(yPercent).toFixed(2) + "%");
+
+        // TODO: Save location to Firestore
+        /*
+        const user = auth.currentUser;
+        if (user) {
+          await setDoc(doc(db, "userLocations", user.uid), {
+            latitude,
+            longitude,
+            updatedAt: new Date(),
+          });
+        }
+        */
       },
-
       (err) => {
         alert("Unable to get your location: " + err.message);
       }
     );
   });
-
-  const updateLocBtn = document.querySelector(".update-location button");
-  updateLocBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    // TODO
-  });
 }
 
-document.addEventListener("DOMContentLoaded", initAll);
+document.addEventListener("DOMContentLoaded", () => {
+  initAll();
+});

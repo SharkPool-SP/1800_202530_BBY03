@@ -39,9 +39,12 @@ body {
   left: 0px;
   top: 0px;
 }
+
 .map-display img {
   filter: var(--theme-hue-norm);
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .map-controls {
@@ -113,5 +116,8 @@ body {
   border-radius: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  display: none;
+  display: block; 
+  z-index: 9999;
+  pointer-events: none;
 }
+
