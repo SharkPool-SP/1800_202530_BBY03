@@ -55,7 +55,7 @@ class NavBar extends HTMLElement {
       <div class="clustr-navbar">
         <button id="meetup-list" selected="${selectedTab === "meetup-list"}">
           <img src="images/icon-meetup.svg" draggable="false" alt="Meetups" />
-          <div>Joined Meetups</div>
+          <div>My Meetups</div>
         </button>
         <button id="map" selected="${selectedTab === "map"}">
           <img src="images/icon-map.svg" draggable="false" alt="Map" />
