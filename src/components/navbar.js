@@ -1,4 +1,3 @@
-// TODO improve this
 class NavBar extends HTMLElement {
   connectedCallback() {
     const selectedTab = this.getAttribute("tab");
