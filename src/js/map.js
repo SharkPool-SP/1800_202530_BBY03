@@ -1,19 +1,17 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import {
+  auth,
+  checkSignedIn,
+  getDocument,
+  setDocument,
+  onAuthStateChanged,
+} from "./FireStoreUtil.js";
 
-/* Firebase Configuration */
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+/* Firebase Events */
+checkSignedIn();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+onAuthStateChanged(auth, (user) => {
+  Events.emit("AUTH_STATE_CHANGE", user);
+});
 
 /* Utility functions */
 function getZoom() {
@@ -128,12 +126,11 @@ function initAll() {
 
         // Define campus GPS boundaries (recalibrated)
         const campusBounds = {
-          latMin: 49.2490,   // South edge
-          latMax: 49.2530,   // North edge
+          latMin: 49.249, // South edge
+          latMax: 49.253, // North edge
           lonMin: -123.0135, // West edge (NW1)
           lonMax: -123.1005, // East edge (SE40 area)
         };
-
 
         // Convert GPS to map %
         const xPercent =
@@ -149,16 +146,16 @@ function initAll() {
         console.log("📊 Calculated percentages (before clamp):");
         console.log("  X:", xPercent.toFixed(2) + "%");
         console.log("  Y:", yPercent.toFixed(2) + "%");
-        
+
         // Check if within bounds
-        const isInBounds = 
-          latitude >= campusBounds.latMin && 
+        const isInBounds =
+          latitude >= campusBounds.latMin &&
           latitude <= campusBounds.latMax &&
-          longitude >= campusBounds.lonMin && 
+          longitude >= campusBounds.lonMin &&
           longitude <= campusBounds.lonMax;
-        
+
         console.log("✅ Within BCIT campus bounds:", isInBounds);
-        
+
         if (!isInBounds) {
           console.warn("⚠️ You are not currently at BCIT campus!");
           console.log("Distance from campus center:");
@@ -197,7 +194,13 @@ function initAll() {
           top: `${clampPercent(yPercent)}%`,
         });
 
-        console.log("✨ Marker placed at:", clampPercent(xPercent).toFixed(2) + "%, " + clampPercent(yPercent).toFixed(2) + "%");
+        console.log(
+          "✨ Marker placed at:",
+          clampPercent(xPercent).toFixed(2) +
+            "%, " +
+            clampPercent(yPercent).toFixed(2) +
+            "%"
+        );
 
         // TODO: Save location to Firestore
         /*

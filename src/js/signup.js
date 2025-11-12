@@ -1,6 +1,8 @@
-import { auth, db } from "./main.js";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { auth, setDocument } from "./FireStoreUtil.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import QuartzParticles from "https://cdn.jsdelivr.net/gh/SharkPool-SP/Quartz-Particles/src/lib/quartz-particles.min.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -73,19 +75,36 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const user = userCredential.user;
 
-      await updateProfile(user, { displayName: name });
-
-      await setDoc(doc(db, "users", user.uid), {
-        name,
+      setDocument("users", user.uid, {
+        hasInitProfile: false,
+        userName: name,
         email,
-        createdAt: new Date(),
+        aboutMe: "I am a student at BCIT!",
+        program: ["Other...", "Burnaby"],
+        themeID: "purple",
+        joinedmeets: [],
+        mymeets: [],
+        location: [0, 0],
+        pfp: "images/default-avatar.svg",
       });
-
-      alert(`🎉 Account created for ${user.email}`);
-      window.location.href = "map.html";
+      //window.location.href = "map.html";
     } catch (error) {
-      console.error("Signup failed:", error.message);
-      alert("Signup failed: " + error.message);
+      if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          window.location.href = "map.html";
+        } catch (error) {
+          console.error("❌ Login failed:", error.message);
+          alert("Login failed: " + error.message);
+        }
+      } else {
+        console.error("Signup failed:", error);
+        alert("Signup failed: " + error.message);
+      }
     }
   });
 });

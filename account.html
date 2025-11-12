@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/logo-color.svg" type="image/svg" />
-    <title>Profile Settings</title>
+    <title>My Profile</title>
 
     <!-- CSS -->
     <link href="src/css/default.css" rel="stylesheet" />
@@ -30,7 +30,7 @@
               <img draggable="false" alt="upload" src="images/upload.svg" />
               <span>Upload Photo</span>
             </button>
-            <input type="file" />
+            <input type="file" accept="image/png, image/jpeg" />
           </div>
         </div>
       </section>
@@ -90,13 +90,17 @@
         </div>
       </section>
 
-      <!-- Save -->
-      <button class="save-changes" disabled="true">Save Changes</button>
+      <!-- Save & Sign Out -->
+      <div class="account-nav">
+        <button id="save-changes" blocked="true">Save Changes</button>
+        <button id="sign-out" blocked="false">Sign Out</button>
+      </div>
     </div>
 
     <!-- Scripts -->
     <script src="src/js/Events.js"></script>
     <script src="src/js/account.js" type="module"></script>
     <script src="src/components/navbar.js" type="module"></script>
+    <script src="src/components/modal.js" type="module"></script>
   </body>
 </html>

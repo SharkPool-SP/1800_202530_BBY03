@@ -10,6 +10,7 @@ header h1 {
   padding: 20px 0;
   text-align: center;
   letter-spacing: 2px;
+  box-shadow: 0 4px 0px var(--theme-value-light);
 }
 header .back-btn {
   background: transparent;
@@ -41,6 +42,7 @@ section {
   border-radius: 10px;
   padding: 15px 10px;
   margin-bottom: 25px;
+  box-shadow: 0 4px 0px var(--theme-value-light);
 }
 h2 {
   border-bottom: solid 4px var(--theme-value);
@@ -59,7 +61,7 @@ h2 {
   align-items: center;
 }
 .content-holder .profile-pic img {
-  width: 30%;
+  width: 9vw;
   border-radius: 8px;
   margin: 0 10px;
 }
@@ -70,6 +72,7 @@ h2 {
   height: max-content;
   padding: 10px 0;
   margin-left: 20px;
+  margin-right: 10px;
   border-radius: 12px;
   border: none;
   background: #fff;
@@ -123,7 +126,7 @@ h2 {
   margin-right: 5px;
   font-size: 100%;
   font-family: "Amble", Arial;
-  background: linear-gradient(180deg, #fff, #d1d1d1);
+  background: linear-gradient(165deg, #fff, #e5e5e5);
 }
 .editable-field textarea {
   min-width: 15vw;
@@ -159,22 +162,29 @@ h2 {
   border: rgba(255, 255, 255, 0.5) solid 3px;
 }
 
-button.save-changes {
+.account-nav {
+  display: flex;
+}
+.account-nav button {
   border-radius: 12px;
   padding: 15px 25px;
-  margin-bottom: 25px;
+  margin: 0 10px 25px 10px;
   background: #fff;
   color: #000;
   border: none;
   font-size: large;
   font-weight: bold;
   font-family: "Amber-Bold", Arial;
-  transition: transform 150ms ease-in-out;
   filter: var(--theme-button-filter);
+  cursor: pointer;
+  pointer-events: all;
+  transition: transform 150ms ease-in-out, margin 150ms ease-in-out,
+    opacity 250ms ease-in-out;
 }
-button.save-changes[disabled="true"] {
+.account-nav button[blocked="true"] {
   opacity: 0.5;
 }
-button.save-changes[disabled="false"]:hover {
+.account-nav button[blocked="false"]:hover {
   transform: scale(1.1);
+  margin: 0 15px 25px 15px;
 }
