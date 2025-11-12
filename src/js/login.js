@@ -1,4 +1,4 @@
-import { auth } from "./main.js";
+import { auth } from "./FireStoreUtil.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import QuartzParticles from "https://cdn.jsdelivr.net/gh/SharkPool-SP/Quartz-Particles/src/lib/quartz-particles.min.js";
 
@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
         email,
         password
       );
-      console.log("✅ Logged in as:", userCredential.user.email);
       window.location.href = "map.html";
     } catch (error) {
       console.error("❌ Login failed:", error.message);

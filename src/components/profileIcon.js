@@ -1,3 +1,9 @@
+import { getDocument } from "../js/FireStoreUtil.js";
+import { applyTheme } from "../js/ThemeUnpack.js";
+import { getThemes } from "../js/Themes.js";
+
+const themes = getThemes();
+
 class ProfileNav extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
@@ -13,6 +19,7 @@ class ProfileNav extends HTMLElement {
           box-shadow: 0 0 15px #000;
           top: 0px;
           cursor: pointer;
+          transition: filter 100ms ease-in-out;
         }
         .my-profile:hover {
           filter: brightness(1.2);
@@ -28,13 +35,27 @@ class ProfileNav extends HTMLElement {
       </div>
     `;
 
-    const navBar = document.querySelector(`div[class="my-profile"]`);
-    navBar.addEventListener("click", (e) => {
+    const profileDiv = document.querySelector(`div[class="my-profile"]`);
+    profileDiv.addEventListener("click", (e) => {
       e.stopPropagation();
 
       if (window.location.href !== "account.html") {
         window.location.href = "account.html";
       }
+    });
+
+    Events.on("AUTH_STATE_CHANGE", (user) => {
+      getDocument("users", user.uid, (data) => {
+        // apply PFP
+        const pfp = data.get("pfp");
+        if (pfp && !pfp.endsWith(".svg")) {
+          profileDiv.firstElementChild.src = "data:image/png;base64," + pfp;
+        }
+
+        // apply Theme
+        const themeID = data.get("themeID");
+        applyTheme(themes.find((t) => t.id === themeID));
+      });
     });
   }
 }
