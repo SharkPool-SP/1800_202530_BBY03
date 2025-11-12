@@ -1,8 +1,8 @@
-# Elmo Hikes
+# Clustr
 
 
 ## Overview
-Elmo Hikes is a client-side JavaScript web application that helps users discover and explore hiking trails. The app displays a curated list of hike trails, each with details such as name, location, difficulty, and an image. Users can browse the list and mark their favorite trails for easy access later.
+Clustr is a client-side JavaScript web application tailored to help BCIT students join together and connect. The app allows you to participate in student-lead meetups, add friends, and to locate peers on the campus map.
 
 Developed for the COMP 1800 course, this project applies User-Centred Design practices and agile project management, and demonstrates integration with Firebase backend services for storing user favorites.
 
@@ -11,9 +11,10 @@ Developed for the COMP 1800 course, this project applies User-Centred Design pra
 
 ## Features
 
-- Browse a list of curated hiking trails with images and details
-- Mark and unmark trails as favorites
-- View a personalized list of favorite hikes
+- Create, join, and manage student-lead meetups
+- Track yourself and others on campus
+- Add/send friend requests
+- Create a personalized profile
 - Responsive design for desktop and mobile
 
 ---
@@ -32,46 +33,27 @@ Example:
 
 ## Usage
 
-1. Open your browser and visit `http://localhost:3000`.
-2. Browse the list of hiking trails displayed on the main page.
-3. Click the heart icon (or similar) to mark a trail as a favorite.
-4. View your favorite hikes in the favorites section.
-
----
-
-
-## Project Structure
-
-```
-elmo-hikes/
-├── src/
-│   ├── main.js
-├── styles/
-│   └── style.css
-├── public/
-├── images/
-├── index.html
-├── package.json
-├── README.md
-```
+1. Open your browser and visit `...`.
+2. Sign-up or login to your account.
+3. Customize your profile and program.
+4. Create/view/join meetups shown on the campus map.
+5. Go to the meetup spot in real life to connect and work with peers.
 
 ---
 
 
 ## Contributors
 - **Brihad Sidda** - BCIT CST Student with a passion for outdoor adventures and user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
-- Shirin Sajeeb - BCIT CST  student passionate about coding and creative project.
-- **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
-- **Vicente G** *(SharkPool-SP)*- BCIT CST Student, 3+ years of Web Dev experience. Fun Fact: Likes camping in Harrison Hot Springs
+- **Shirin Sajeeb** - BCIT CST  student passionate about coding and creative project.
+- **Vicente G** *(SharkPool-SP)*- BCIT CST Student, 3+ years of Web Dev experience. Fun Fact: Likes camping and catching frogs.
 
 ---
 
 
 ## Acknowledgments
 
-- Trail data and images are for demonstration purposes only.
-- Code snippets were adapted from resources such as [Stack Overflow](https://stackoverflow.com/) and [MDN Web Docs](https://developer.mozilla.org/).
-- Icons sourced from [FontAwesome](https://fontawesome.com/) and images from [Unsplash](https://unsplash.com/).
+- Some Icons sourced from [SVG Repo](https://www.svgrepo.com)
+- Particle engine sourced from [Quartz Particles](https://github.com/SharkPool-SP/Quartz-Particles)
 
 ---
 
@@ -79,14 +61,11 @@ elmo-hikes/
 ## Limitations and Future Work
 ### Limitations
 
-- Limited trail details (e.g., no live trail conditions).
-- Accessibility features can be further improved.
+- ...
 
 ### Future Work
 
-- Implement map view and trailhead directions.
-- Add filtering and sorting options (e.g., by difficulty, distance).
-- Create a dark mode for better usability in low-light conditions.
+- ...
 
 ---
 
