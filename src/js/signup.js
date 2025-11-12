@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         location: [0, 0],
         pfp: "images/default-avatar.svg",
       });
-      //window.location.href = "map.html";
+      window.location.href = "map.html";
     } catch (error) {
       if (error.message === "Firebase: Error (auth/email-already-in-use).") {
         try {
