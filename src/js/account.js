@@ -54,6 +54,7 @@ function saveChanges() {
     themeID: changedData.theme,
     program: [changedData.program, changedData.campus],
     pfp: changedData.pfp,
+    hasInitProfile: true,
   });
 
   showModal("Success!", "Your profile has been updated.");

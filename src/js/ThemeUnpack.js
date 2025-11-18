@@ -11,6 +11,7 @@ const applyTheme = function (theme) {
   bodyStyle.setProperty("--theme-glow", theme.glow ?? "#000");
   bodyStyle.setProperty("--theme-borders", theme.borders ?? theme.color);
   bodyStyle.setProperty("--theme-button-filter", theme.whiteButtonFilter ?? "");
+  bodyStyle.setProperty("--theme-background", theme.specialBG ?? theme.color);
 };
 
 export { applyTheme };
