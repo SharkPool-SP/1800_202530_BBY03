@@ -28,9 +28,9 @@ class Modal extends HTMLElement {
           color: var(--theme-text);
           width: max-content;
           height: max-content;
-          border-radius: 20px;
-          border: solid 6px var(--theme-value-light);
-          box-shadow: 0 0 25px 6px var(--theme-value-dark);
+          border-radius: 14px;
+          border: solid 5px var(--theme-value-light);
+          box-shadow: 0 0 10px 5px var(--theme-value-dark);
           background: var(--theme-value);
           transform: scale(0);
           transition: transform 0.3s ease, opacity 0.3s ease;
@@ -62,6 +62,7 @@ class Modal extends HTMLElement {
         .clustr-modal .title span {
           display: inline-block;
           text-align: center;
+          color: var(--theme-text);
         }
         .clustr-modal .title .close img {
           width: 100%;
@@ -82,6 +83,7 @@ class Modal extends HTMLElement {
           margin-right: 5px;
           filter: var(--theme-hue);
           transition: transform 100ms ease-in-out;
+          cursor: pointer;
         }
         .clustr-modal .title .close:hover {
           transform: translateY(-50%) scale(1.2);
@@ -89,12 +91,18 @@ class Modal extends HTMLElement {
 
         .clustr-modal .content {
           padding: 20px 20px 40px 20px;
+          border-radius: 0 0 12px 12px;
+          background: var(--theme-value);
         }
         .clustr-modal .content p {
           font-family: "Amble-Regular", Arial;
           font-weight: normal;
           margin: 0px;
           font-size: calc(clamp(10px, 35px, 3vw) / 1.5);
+          background: var(--theme-value-dark);
+          padding: 10px 20px 40px 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 0 var(--theme-value-light);
         }
       </style>
       <div class="clustr-modal-holder">

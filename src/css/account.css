@@ -1,6 +1,7 @@
 body {
   --theme-glow: #000;
   --theme-borders: var(--theme-value);
+  background: var(--theme-background) !important;
 }
 
 header h1 {
