@@ -4,21 +4,73 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/logo-color.svg" type="image/svg" />
-    <title>Campus Map</title>
+    <title>Campus Map - Meetups</title>
 
     <!-- CSS -->
     <link href="src/css/default.css" rel="stylesheet" />
     <link href="src/css/meetup-list.css" rel="stylesheet" />
   </head>
+
   <body>
-    <!-- Main Content -->
     <profile-nav></profile-nav>
 
     <header>
-      <h1>TODO DO THIS</h1>
+      <button class="back-btn">
+        <img src="images/arrow.svg" alt="Back" />
+      </button>
+      <h1>Meetups</h1>
     </header>
 
-    <!-- Navigation -->
+    <div class="content">
+      <!-- meetups user created -->
+      <section class="meetup-list">
+        <h2>Your Meetups</h2>
+
+        <div id="meetups-created">
+          <div class="meetup-item">
+            <div class="meetup-info">
+              <h3>Study Session - SE2</h3>
+              <p><strong>Location:</strong> Library, 2nd Floor</p>
+              <p><strong>Time:</strong> Today, 3:00 PM</p>
+              <p><strong>Attendees:</strong> 5/8</p>
+            </div>
+            <div class="meetup-actions">
+              <button class="btn btn-secondary leave-btn">Leave</button>
+              <button class="btn btn-danger delete-btn">Delete</button>
+            </div>
+          </div>
+        </div>
+        <!--a placeholder when useer hasn't created any meetups -->
+        <div class="empty-state" id="empty-created" style="display: none">
+          <h3>No Meetups Created</h3>
+        </div>
+      </section>
+
+      <!--  meetups user joined -->
+      <section class="meetup-list">
+        <h2>Meetups You Joined</h2>
+
+        <div id="meetups-joined">
+          <div class="meetup-item">
+            <div class="meetup-info">
+              <h3>Group Study for CST students</h3>
+              <p><strong>Location:</strong> SW5 1850</p>
+              <p><strong>Time:</strong> Tomorrow, 11:00 AM</p>
+              <p><strong>Attendees:</strong> 10/12</p>
+            </div>
+            <div class="meetup-actions">
+              <button class="btn btn-secondary leave-btn">Leave</button>
+            </div>
+          </div>
+        </div>
+
+        <!--a placeholder when useer hasn't joind any meetups -->
+        <div class="empty-state" id="empty-joined" style="display: none">
+          <h3>No Meetups Joined</h3>
+        </div>
+      </section>
+    </div>
+
     <clustr-navbar tab="meetup-list" />
 
     <!-- Scripts -->

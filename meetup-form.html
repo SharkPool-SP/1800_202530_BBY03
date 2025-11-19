@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/logo-color.svg" type="image/svg" />
+    <title>Campus Map - Meetups</title>
+
+    <!-- CSS -->
+    <link href="src/css/default.css" rel="stylesheet" />
+    <link href="src/css/meetup-form.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Profile Nav -->
+    <profile-nav></profile-nav>
+
+    <header>
+      <button class="back-btn">
+        <img src="images/arrow.svg" alt="Back" />
+      </button>
+      <h1>Meetups</h1>
+    </header>
+
+    <div class="content">
+      <!-- create meetup section -->
+      <section class="create-meetup">
+        <h2>Create New Meetup</h2>
+        <form id="create-meetup-form">
+          <div class="form-group">
+            <label for="meetup-name">Meetup Name</label>
+            <input
+              type="text"
+              id="meetup-name"
+              placeholder="Enter meetup name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-location">Location</label>
+            <input
+              type="text"
+              id="meetup-location"
+              placeholder="Enter location"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-date">Date & Time</label>
+            <input type="datetime-local" id="meetup-date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-description">Description</label>
+            <textarea
+              id="meetup-description"
+              placeholder="Enter meetup description"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-max-attendees">Max Attendees</label>
+            <input
+              type="number"
+              id="meetup-max-attendees"
+              min="2"
+              max="20"
+              value="5"
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create Meetup</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- join meetup section -->
+<section class="join-meetup">
+  <h2>Join a Meetup</h2>
+
+  <div class="join-card">
+    <div class="join-info">
+      <h3 id="join-meetup-title"> Study Group</h3>
+
+      <p><img src="images/location-pin.svg" class="icon" /> SE6</p>
+      <p><img src="images/clock.svg" class="icon" /> 3:00 PM</p>
+      <p><img src="images/people.svg" class="icon" /> 5 Participants</p>
+    </div>
+    <!--buttom for join only different css for the create one-->
+    <button class="join-btn">Join</button>
+  </div>
+</section>
+
+
+          
+
+    <clustr-navbar tab="meetup-form"></clustr-navbar>
+
+    <!-- Scripts -->
+    <script src="src/components/navbar.js" type="module"></script>
+    <script src="src/components/profileIcon.js" type="module"></script>
+    <script src="src/js/meetup-form.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+@font-face {
+  font-family: "Amble-Bold";
+  src: url("/fonts/Amble-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+:root {
+  --theme-value: #8a2be2;
+  --theme-value-light: #b19cd9;
+  --theme-value-dark: #4b0082;
+  --theme-glow: #9370db;
+  --theme-borders: var(--theme-value);
+  --theme-hue: hue-rotate(270deg);
+  --theme-button-filter: hue-rotate(270deg);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Amble-Bold";
+  background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+  min-height: 100vh;
+}
+
+header {
+  position: relative;
+}
+
+header h1 {
+  width: 100%;
+  background: var(--theme-value-dark);
+  margin: 0 0 25px 0;
+  padding: 20px 0;
+  text-align: center;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 0px var(--theme-value-light);
+  color: white;
+}
+
+header .back-btn {
+  background: transparent;
+  border: none;
+  margin: 20px 10px;
+  position: absolute;
+  filter: var(--theme-hue);
+  cursor: pointer;
+  transition: transform 150ms ease-in-out;
+}
+
+header .back-btn:hover {
+  transform: scale(1.15);
+}
+
+header .back-btn img {
+  width: 75%;
+}
+
+/* the content for the whole page */
+.content {
+  padding: 0 20px 30px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/*form*/
+.create-meetup,
+.join-meetup {
+  width: 45%;
+  max-width: 400px;
+  background: var(--theme-value-dark);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 0;
+  box-shadow: 0 4px 0px var(--theme-value-light);
+  color: white;
+}
+
+.create-meetup h2,
+.join-meetup h2 {
+  border-bottom: solid 4px var(--theme-value);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+/* form */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  border-radius: 8px;
+  border: solid 2.5px var(--theme-borders);
+  padding: 10px;
+  background: linear-gradient(165deg, #fff, #e5e5e5);
+  font-family: "Amble", Arial;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* button for create */
+.btn {
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: medium;
+  font-weight: bold;
+  border: 2px solid #b19cd9;
+  background: #967bb6;
+  color: white;
+  filter: var(--theme-button-filter);
+  cursor: pointer;
+  transition: transform 150ms ease-in-out;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px var(--theme-value);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* meetup card for join */
+.join-card {
+  background: #fff;
+  border: 3px solid var(--theme-value);
+  border-radius: 12px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.join-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.join-info p {
+  margin: 5px 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon {
+  width: 18px;
+  filter: var(--theme-hue);
+}
+
+/* button for join*/
+.join-btn {
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: medium;
+  font-weight: bold;
+  border: 2px solid #b19cd9;
+  background: #967bb6;
+  color: white;
+  filter: var(--theme-button-filter);
+  cursor: pointer;
+  transition: transform 150ms ease-in-out;
+}
+
+.join-btn:hover {
+  transform: scale(1.05);
+}
