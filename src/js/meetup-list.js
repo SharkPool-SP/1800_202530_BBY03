@@ -1,4 +1,4 @@
-// checks if the meetup lists are empty , shows the meeagse
+// checks if the meetup lists are empty , shows the messages
 function updateEmptyStates() {
   const createdList = document.getElementById("meetups-created");
   const joinedList = document.getElementById("meetups-joined");
