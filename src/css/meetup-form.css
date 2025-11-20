@@ -13,6 +13,7 @@
   --theme-borders: var(--theme-value);
   --theme-hue: hue-rotate(270deg);
   --theme-button-filter: hue-rotate(270deg);
+  --theme-text: #fff;
 }
 
 body {
@@ -35,7 +36,7 @@ header h1 {
   text-align: center;
   letter-spacing: 2px;
   box-shadow: 0 4px 0px var(--theme-value-light);
-  color: white;
+  color: var(--theme-text);
 }
 
 header .back-btn {
@@ -58,7 +59,7 @@ header .back-btn img {
 
 /* the content for the whole page */
 .content {
-  padding: 0 20px 30px 20px;
+  padding: 0 20px 100px 20px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -68,15 +69,39 @@ header .back-btn img {
 
 /*form*/
 .create-meetup,
-.join-meetup {
+.join-meetup,
+.browse-meetups {
   width: 45%;
-  max-width: 400px;
+  max-width: 500px;
   background: var(--theme-value-dark);
   border-radius: 10px;
-  padding: 20px;
+  padding: 30px;
   margin-bottom: 0;
   box-shadow: 0 4px 0px var(--theme-value-light);
-  color: white;
+  color: var(--theme-text);
+}
+
+.browse-meetups {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.browse-meetups::-webkit-scrollbar {
+  width: 8px;
+}
+
+.browse-meetups::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.browse-meetups::-webkit-scrollbar-thumb {
+  background: var(--theme-value);
+  border-radius: 4px;
+}
+
+.browse-meetups::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-value-light);
 }
 
 .create-meetup h2,
@@ -84,6 +109,7 @@ header .back-btn img {
   border-bottom: solid 4px var(--theme-value);
   padding-bottom: 10px;
   margin-bottom: 15px;
+  color: var(--theme-text);
 }
 
 /* form */
@@ -95,6 +121,7 @@ header .back-btn img {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: var(--theme-text);
 }
 
 .form-group input,
@@ -103,10 +130,27 @@ header .back-btn img {
   width: 100%;
   border-radius: 8px;
   border: solid 2.5px var(--theme-borders);
-  padding: 10px;
+  padding: 12px;
   background: linear-gradient(165deg, #fff, #e5e5e5);
   font-family: "Amble", Arial;
   box-sizing: border-box;
+  color: #000;
+  font-size: 1em;
+  transition: border-color 150ms ease-in-out;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--theme-value);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-group small {
+  display: block;
+  margin-top: 5px;
+  color: var(--theme-text);
 }
 
 .form-group textarea {
@@ -120,10 +164,9 @@ header .back-btn img {
   padding: 10px 20px;
   font-size: medium;
   font-weight: bold;
-  border: 2px solid #b19cd9;
-  background: #967bb6;
-  color: white;
-  filter: var(--theme-button-filter);
+  border: 2px solid var(--theme-borders);
+  background: var(--theme-value);
+  color: var(--theme-text);
   cursor: pointer;
   transition: transform 150ms ease-in-out;
 }
@@ -131,6 +174,15 @@ header .back-btn img {
 .btn:hover {
   transform: scale(1.05);
   box-shadow: 0 0 0 3px var(--theme-value);
+}
+
+.btn-secondary {
+  background: var(--theme-value-light);
+  border-color: var(--theme-borders);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 0 0 3px var(--theme-value-light);
 }
 
 .form-actions {
@@ -177,14 +229,28 @@ header .back-btn img {
   padding: 10px 20px;
   font-size: medium;
   font-weight: bold;
-  border: 2px solid #b19cd9;
-  background: #967bb6;
-  color: white;
-  filter: var(--theme-button-filter);
+  border: 2px solid var(--theme-borders);
+  background: var(--theme-value);
+  color: var(--theme-text);
   cursor: pointer;
   transition: transform 150ms ease-in-out;
 }
 
 .join-btn:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 0 3px var(--theme-value);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .create-meetup,
+  .join-meetup {
+    width: 90%;
+    max-width: none;
+  }
 }

@@ -6,6 +6,15 @@ import {
   setDoc,
   updateDoc,
   getDoc,
+  collection,
+  addDoc,
+  deleteDoc,
+  arrayUnion,
+  arrayRemove,
+  serverTimestamp,
+  query,
+  where,
+  getDocs,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -95,4 +104,17 @@ export {
   getDocument,
   setDocument,
   onAuthStateChanged,
+  // Export additional Firestore functions for meetup functionality
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  arrayUnion,
+  arrayRemove,
+  serverTimestamp,
+  query,
+  where,
+  getDocs,
 };

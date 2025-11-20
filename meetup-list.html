@@ -22,51 +22,40 @@
     </header>
 
     <div class="content">
+      <!-- Create New Meetup Button -->
+      <div class="create-meetup-section">
+        <button class="btn btn-primary create-meetup-btn" onclick="window.location.href='meetup-form.html'">
+          <span style="font-size: 1.2em; margin-right: 5px;">+</span> Create New Meetup
+        </button>
+      </div>
+
       <!-- meetups user created -->
       <section class="meetup-list">
         <h2>Your Meetups</h2>
 
         <div id="meetups-created">
-          <div class="meetup-item">
-            <div class="meetup-info">
-              <h3>Study Session - SE2</h3>
-              <p><strong>Location:</strong> Library, 2nd Floor</p>
-              <p><strong>Time:</strong> Today, 3:00 PM</p>
-              <p><strong>Attendees:</strong> 5/8</p>
-            </div>
-            <div class="meetup-actions">
-              <button class="btn btn-secondary leave-btn">Leave</button>
-              <button class="btn btn-danger delete-btn">Delete</button>
-            </div>
-          </div>
+          <!-- Meetups will be loaded here dynamically -->
         </div>
-        <!--a placeholder when useer hasn't created any meetups -->
-        <div class="empty-state" id="empty-created" style="display: none">
+        
+        <!--a placeholder when user hasn't created any meetups -->
+        <div class="empty-state" id="empty-created">
           <h3>No Meetups Created</h3>
+          <p>Create your first meetup to get started!</p>
         </div>
       </section>
 
-      <!--  meetups user joined -->
+      <!-- meetups user joined -->
       <section class="meetup-list">
         <h2>Meetups You Joined</h2>
 
         <div id="meetups-joined">
-          <div class="meetup-item">
-            <div class="meetup-info">
-              <h3>Group Study for CST students</h3>
-              <p><strong>Location:</strong> SW5 1850</p>
-              <p><strong>Time:</strong> Tomorrow, 11:00 AM</p>
-              <p><strong>Attendees:</strong> 10/12</p>
-            </div>
-            <div class="meetup-actions">
-              <button class="btn btn-secondary leave-btn">Leave</button>
-            </div>
-          </div>
+          <!-- Meetups will be loaded here dynamically -->
         </div>
 
-        <!--a placeholder when useer hasn't joind any meetups -->
-        <div class="empty-state" id="empty-joined" style="display: none">
+        <!--a placeholder when user hasn't joined any meetups -->
+        <div class="empty-state" id="empty-joined">
           <h3>No Meetups Joined</h3>
+          <p>Browse and join meetups from the map!</p>
         </div>
       </section>
     </div>
