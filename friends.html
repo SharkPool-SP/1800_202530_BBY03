@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/logo-color.svg" type="image/svg" />
-    <title>Campus Map</title>
+    <title>Friends</title>
 
     <!-- CSS -->
     <link href="src/css/default.css" rel="stylesheet" />
@@ -14,12 +14,79 @@
     <!-- Main Content -->
     <profile-nav></profile-nav>
 
-    <header>
-      <h1>TODO DO THIS</h1>
-    </header>
+    <div class="content">
+      <!-- Tab Navigation -->
+      <div class="friend-tabs">
+        <button class="tab-btn active" data-tab="friends">
+          My Friends
+          <span class="friend-count">0</span>
+        </button>
+        <button class="tab-btn" data-tab="requests">
+          Requests
+          <span class="request-count">0</span>
+        </button>
+        <button class="tab-btn" data-tab="search">
+          Find Friends
+        </button>
+      </div>
+
+      <!-- Friends List Tab -->
+      <div class="tab-content active" id="friends-tab">
+        <div class="friends-list">
+          <!-- Friends will be dynamically loaded here -->
+        </div>
+        <div class="empty-state" style="display: none;">
+          <img src="images/icon-friends.svg" alt="No friends" />
+          <h3>No Friends Yet</h3>
+          <p>Start connecting by searching for friends!</p>
+        </div>
+      </div>
+
+      <!-- Requests Tab -->
+      <div class="tab-content" id="requests-tab">
+        <div class="requests-section">
+          <h3>Incoming Requests</h3>
+          <div class="incoming-requests">
+            <!-- Incoming requests will be loaded here -->
+          </div>
+          <div class="empty-state" style="display: none;">
+            <p>No incoming friend requests</p>
+          </div>
+        </div>
+
+        <div class="requests-section">
+          <h3>Sent Requests</h3>
+          <div class="sent-requests">
+            <!-- Sent requests will be loaded here -->
+          </div>
+          <div class="empty-state" style="display: none;">
+            <p>No sent friend requests</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Tab -->
+      <div class="tab-content" id="search-tab">
+        <div class="search-container">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search by username or email..."
+            autocomplete="off"
+          />
+          <button id="search-btn">Search</button>
+        </div>
+        <div class="search-results">
+          <!-- Search results will be loaded here -->
+        </div>
+        <div class="empty-state" style="display: none;">
+          <p>Search for users to add as friends</p>
+        </div>
+      </div>
+    </div>
 
     <!-- Navigation -->
-    <clustr-navbar tab="friends" />
+    <clustr-navbar tab="friends"></clustr-navbar>
 
     <!-- Scripts -->
     <script src="src/js/Events.js"></script>
