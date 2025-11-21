@@ -1,0 +1,28 @@
+bby03
+meetup for bcit students
+
+first time after account
+- select program
+  see Map page
+  see all students/users/program who are actively around 
+  
+normal day login (80%)
+- **default Map (meetups active, click/tap see details/join)
+- **button to "create a meetup"
+- **create new meetup (save to db)
+- meetup page(?), friends list
+
+mymeetups
+- *list of ones I've joined
+     
+/users/0381432/name: elmo
+               program: cst-bby
+               joinedmeetups: [01843, 0348143,0391483,093814]
+               mymeetups: [084134,03814]
+               
+/meetups/084134/geolocation: xy lat/lng
+                owner: 0381432
+                details: "grinding 1510"
+                starttime: timestamp.. (that's all?)
+                createdtime:  ...?
+                members: [0381432,301843,03814,301483,]

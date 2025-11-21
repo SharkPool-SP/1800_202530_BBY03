@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/logo-color.svg" type="image/svg" />
+    <title>Campus Map</title>
+
+    <!-- CSS -->
+    <link href="src/css/default.css" rel="stylesheet" />
+    <link href="src/css/map.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Main Content -->
+    <profile-nav></profile-nav>
+
+    <div class="content">
+      <div class="map-controls">
+        <div class="zoom-controls">
+          <button id="plus" title="Zoom In">+</button>
+          <button id="minus" title="Zoom Out">-</button>
+          <button id="reset" title="Center">=</button>
+        </div>
+        <div class="update-location">
+          <button id="update">Update My Location</button>
+        </div>
+      </div>
+
+      <div class="map-dragger"></div>
+      <div class="map-display">
+        <div>
+          <img
+            src="images/campus-map-bby.svg"
+            draggable="false"
+            alt="campus map"
+          />
+          <div class="pins"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <clustr-navbar tab="map"></clustr-navbar>
+
+    <!-- Scripts -->
+    <script src="src/js/Events.js"></script>
+    <script src="src/components/navbar.js" type="module"></script>
+    <script src="src/components/profileIcon.js" type="module"></script>
+    <script src="src/components/modal.js" type="module"></script>
+    <script src="src/components/pin.js" type="module"></script>
+    <script src="src/js/map.js" type="module"></script>
+  </body>
+</html>

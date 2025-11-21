@@ -1,0 +1,111 @@
+@media screen and (min-width: 1300px) {
+  .map-controls .zoom-controls {
+    bottom: 12% !important;
+  }
+}
+
+body {
+  overflow: hidden;
+  --map-zoom: scale(3);
+  user-select: none;
+  -moz-user-select: none;
+}
+
+.map-dragger {
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  cursor: grab;
+}
+.map-dragger:active {
+  cursor: grabbing;
+}
+
+.map-display {
+  position: absolute;
+  background-color: var(--theme-value-dark);
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  left: 0px;
+  top: 0px;
+}
+
+.map-display div {
+  width: 100%;
+  transform-origin: 0 0;
+  transform: var(--map-zoom);
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.map-display img {
+  filter: var(--theme-hue-map);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.map-controls {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+}
+
+.map-controls .zoom-controls {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: flex-end;
+  width: 100vw;
+  bottom: 12%;
+}
+.map-controls .zoom-controls button {
+  pointer-events: all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin: 8px;
+  margin-right: 15px;
+  font-size: larger;
+  font-weight: bold;
+  font-family: Arial;
+  border-radius: 100px;
+  border: none;
+  color: #000;
+  background: #fff;
+  filter: var(--theme-button-filter);
+  transition: transform 150ms ease-in-out;
+  cursor: pointer;
+}
+.map-controls .zoom-controls button:hover {
+  transform: scale(1.15);
+}
+
+.map-controls .update-location {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.map-controls .update-location button {
+  pointer-events: all;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  color: #000;
+  background: #fff;
+  filter: var(--theme-button-filter);
+  transition: transform 150ms ease-in-out;
+  font-size: large;
+  font-family: "Amble-Bold", Arial;
+  font-weight: bold;
+}
+.map-controls .update-location button:hover {
+  transform: scale(1.15);
+}

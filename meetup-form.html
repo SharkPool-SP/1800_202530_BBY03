@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/logo-color.svg" type="image/svg" />
+    <title>Meetup Form</title>
+
+    <!-- CSS -->
+    <link href="src/css/default.css" rel="stylesheet" />
+    <link href="src/css/meetup-form.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Profile Nav -->
+    <profile-nav hasNav="true"></profile-nav>
+
+    <header>
+      <button class="back-btn">
+        <a href="#meetup-list.html">
+          <img draggable="false" alt="Back" src="images/arrow.svg" />
+        </a>
+      </button>
+      <h1>Meetup Form</h1>
+    </header>
+
+    <div class="content">
+      <!-- create meetup section -->
+      <section class="create-meetup">
+        <h2>Create New Meetup</h2>
+        <form id="create-meetup-form">
+          <div class="form-group">
+            <label for="meetup-name">Meetup Name *</label>
+            <input
+              type="text"
+              id="meetup-name"
+              placeholder="Enter meetup name"
+              required
+              maxlength="30"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-location">Location *</label>
+            <input
+              type="text"
+              id="meetup-location"
+              placeholder="Enter location (e.g., Library 2nd Floor, SW5 1850)"
+              required
+              maxlength="100"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-date">Date & Time *</label>
+            <input type="datetime-local" id="meetup-date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-description">Description</label>
+            <textarea
+              id="meetup-description"
+              placeholder="Enter meetup description (optional)"
+              maxlength="200"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-max-attendees">Max Attendees</label>
+            <input
+              type="number"
+              id="meetup-max-attendees"
+              min="2"
+              max="50"
+              value="10"
+            />
+            <small style="opacity: 0.8; font-size: 0.85em"
+              >Optional - Leave empty for unlimited</small
+            >
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="btn">Reset</button>
+            <button type="submit" class="btn">Create Meetup</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Browse & Join Meetups section -->
+      <section class="browse-meetups">
+        <h2>Available Meetups</h2>
+
+        <div id="available-meetups">
+          <!-- Live meetups created by others will be loaded here -->
+        </div>
+
+        <!-- Empty state when no meetups are available -->
+        <div class="empty-state" id="empty-browse" style="display: none">
+          <h3>No Available Meetups</h3>
+          <p>Be the first to create one!</p>
+        </div>
+      </section>
+    </div>
+
+    <clustr-navbar tab="meetup-list"></clustr-navbar>
+
+    <!-- Scripts -->
+    <script src="src/js/Events.js"></script>
+    <script src="src/components/navbar.js" type="module"></script>
+    <script src="src/components/profileIcon.js" type="module"></script>
+    <script src="src/components/modal.js" type="module"></script>
+    <script src="src/js/meetup-form.js" type="module"></script>
+  </body>
+</html>
