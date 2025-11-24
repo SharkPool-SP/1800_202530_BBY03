@@ -45,7 +45,7 @@ function updateLocalStore() {
 const storage = getLocalStore();
 
 /* unpack local storage items */
-document.body.style.setProperty("--map-zoom", `scale(${storage.zoom})`);
+document.body.style.setProperty("--map-zoom", `scale(${storage.map.zoom})`);
 
 /* Utility functions */
 function getZoom() {
@@ -77,7 +77,7 @@ function clamp(min, max, value) {
 }
 
 function handleSetPin(mapDiv) {
-  if (!storage.hasPinnedBefore) {
+  if (!storage.map.hasPinnedBefore) {
     showClustrModal(
       "How to Update Your Location",
       `<p>
@@ -98,7 +98,7 @@ function handleSetPin(mapDiv) {
       const spanLabel = event.target.closest(`span[class^="label-update"]`);
       const checkbox = spanLabel.children[0];
       if (event.target !== checkbox) checkbox.checked = !checkbox.checked;
-      storage.hasPinnedBefore = checkbox.checked;
+      storage.map.hasPinnedBefore = checkbox.checked;
       updateLocalStore();
     });
   }
@@ -207,7 +207,7 @@ function initAll() {
     document.body.style.setProperty("--map-zoom", `scale(${newZoom})`);
     mapDiv.style.left = mapPos[0] * (newZoom / currentZoom) + "px";
     mapDiv.style.top = mapPos[1] * (newZoom / currentZoom) + "px";
-    storage.zoom = newZoom;
+    storage.map.zoom = newZoom;
     updateLocalStore();
   });
 
