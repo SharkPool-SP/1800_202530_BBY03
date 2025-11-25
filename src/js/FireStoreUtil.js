@@ -12,6 +12,9 @@ import {
   arrayUnion,
   arrayRemove,
   getDocs,
+  query,
+  where,
+  serverTimestamp,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -111,4 +114,7 @@ export {
   arrayUnion,
   arrayRemove,
   getDocs,
+  query,
+  where,
+  serverTimestamp,
 };

@@ -3,16 +3,14 @@ import {
   db,
   checkSignedIn,
   onAuthStateChanged,
-} from "./FireStoreUtil.js";
-import {
   collection,
   addDoc,
   doc,
   getDoc,
   updateDoc,
-  arrayUnion,
   getDocs,
-} from "firebase/firestore";
+  arrayUnion,
+} from "./FireStoreUtil.js";
 
 let currentUser = null;
 

@@ -1,7 +1,12 @@
 class Pin extends HTMLElement {
   connectedCallback() {
     const imgSrc = this.getAttribute("src");
+    const name = this.getAttribute("name");
+    const isMeetup = this.getAttribute("meetup");
     this.removeAttribute("src");
+    this.removeAttribute("name");
+    this.removeAttribute("name");
+    if (!imgSrc) return;
     this.innerHTML = `
       <style>
         clustr-pin {
@@ -36,9 +41,24 @@ class Pin extends HTMLElement {
           left: calc(50% + 5px);
           transform: translate(-50%, -50%) rotate(45deg);
         }
+        .clustr-pin span {
+          position: absolute;
+          left: 50%;
+          top: -20px;
+          transform: translateX(-50%);
+          text-align: center;
+          font-size: 10px;
+          color: #000;
+          background: #fff;
+          filter: var(--theme-button-filter);
+          padding: 2px 5px;
+          border-radius: 8px;
+          white-space: nowrap;
+        }
       </style>
       <div class="clustr-pin">
         <img src="${imgSrc}" alt="Profile Image" />
+        <span>${name}</span>
         <div class="nub"></div>
       </div>
     `;
@@ -46,9 +66,12 @@ class Pin extends HTMLElement {
 }
 customElements.define("clustr-pin", Pin);
 
-globalThis.createPin = (imgSrc, appendable) => {
+globalThis.createPin = (imgSrc, name, isMeetup, appendable) => {
   const pinDiv = document.createElement("clustr-pin");
   pinDiv.setAttribute("src", imgSrc);
+  pinDiv.setAttribute("name", name);
+  pinDiv.setAttribute("meetup", isMeetup);
+  console.log(name, isMeetup, appendable);
   appendable.appendChild(pinDiv);
   return pinDiv;
 };

@@ -57,7 +57,8 @@ body {
 }
 
 .request-count:not(:empty) {
-  background: #ff4444;
+  background: var(--theme-value);
+  filter: invert(1);
   animation: pulse 2s infinite;
 }
 
