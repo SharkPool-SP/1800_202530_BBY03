@@ -13,7 +13,7 @@ class ProfileNav extends HTMLElement {
           margin: ${hasNav ? "12px 0 0px 80px" : "8px 0 0 8px"};
           padding: 2px;
           border-radius: 100%;
-          width: 51px;
+          width: 50px;
           height: 51px;
           position: absolute;
           background: var(--theme-value);

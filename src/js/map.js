@@ -1,18 +1,21 @@
 import {
+  db,
   auth,
   checkSignedIn,
   getDocument,
   setDocument,
   onAuthStateChanged,
+  collection,
+  getDocs,
 } from "./FireStoreUtil.js";
 
 /* Firebase Events */
 checkSignedIn();
 
-let userId, myPin;
+let thisUser, myPin;
 
 onAuthStateChanged(auth, (user) => {
-  userId = user.uid;
+  thisUser = user;
   unloadPins();
   Events.emit("AUTH_STATE_CHANGE", user);
 });
@@ -110,6 +113,8 @@ function handleSetPin(mapDiv) {
     const localX = (e.clientX - rect.left) / zoom;
     const localY = (e.clientY - rect.top) / zoom;
 
+    myPin.dataset.px = localX / rect.width;
+    myPin.dataset.py = localY / rect.height;
     myPin.style.left = `${localX}px`;
     myPin.style.top = `${localY}px`;
   });
@@ -118,12 +123,16 @@ function handleSetPin(mapDiv) {
 function handleUpdatePin() {
   Events.off("MAP_CLICK");
 
-  setDocument("users", userId, {
-    location: [parseFloat(myPin.style.left), parseFloat(myPin.style.top)],
+  setDocument("users", thisUser.uid, {
+    location: [parseFloat(myPin.dataset.px), parseFloat(myPin.dataset.py)],
   });
 }
 
-function unloadPins() {
+async function unloadPins() {
+  const pinDiv = document.querySelector(`div[class="pins"]`);
+  const mapDiv = document.querySelector(".map-display").firstElementChild;
+  const rect = mapDiv.getBoundingClientRect();
+
   Events.once("PROFILE_PIC_FOUND", (userData) => {
     const pfp = userData.get("pfp");
     if (pfp && !pfp.endsWith(".svg")) {
@@ -131,12 +140,61 @@ function unloadPins() {
     }
 
     const position = userData.get("location");
-    myPin.style.left = `${position[0]}px`;
-    myPin.style.top = `${position[1]}px`;
+    myPin.style.left = `${position[0] * rect.width}px`;
+    myPin.style.top = `${position[1] * rect.height}px`;
     myPin.style.display = "";
   });
 
-  // TODO load all pins of meetups and people
+  // unload users
+  const usersSnapshot = await getDocs(collection(db, "users"));
+  getDocument("users", thisUser.uid, (data) => {
+    if (!data) return;
+    const programMatters = (prog) => prog !== "Other...";
+    const myProgram = data.get("program")[0];
+    const myProgramMatters = programMatters(myProgram);
+
+    const users = usersSnapshot.docs
+      .map((doc) => ({ id: doc.id, ...doc.data() }))
+      .filter((user) => {
+        // only show initialized profiles of the same program
+        const programMatches =
+          myProgramMatters && programMatters(user.program[0])
+            ? myProgram === user.program[0]
+            : true;
+        return (
+          user.id !== thisUser.uid && user.hasInitProfile && programMatches
+        );
+      });
+
+    for (const user of users) {
+      const pfp = user.pfp.endsWith(".svg")
+        ? user.pfp
+        : "data:image/png;base64," + user.pfp;
+      const pin = createPin(pfp, user.userName, false, pinDiv);
+
+      const position = user.location;
+      pin.style.left = `${position[0] * rect.width}px`;
+      pin.style.top = `${position[1] * rect.height}px`;
+      pinDiv.parentNode.appendChild(pin);
+    }
+  });
+
+  // unload meetups
+  return;
+  const meetsSnapshot = await getDocs(collection(db, "meetups"));
+  const meets = meetsSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }));
+
+  for (const meet of meets) {
+    console.log(meet);
+    const pin = createPin("", meet.userName, true, pinDiv);
+
+    const position = meet.location;
+    pin.style.left = `${position[0] * rect.width}px`;
+    pin.style.top = `${position[1] * rect.height}px`;
+    pinDiv.parentNode.appendChild(pin);
+  }
 }
 
 /* Main Initialization */
@@ -226,7 +284,7 @@ function initAll() {
     }
   });
 
-  myPin = createPin("../images/default-avatar.svg", mapDiv);
+  myPin = createPin("../images/default-avatar.svg", "You", false, mapDiv);
   myPin.id = "me";
   myPin.style.display = "none";
 }

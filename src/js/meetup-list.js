@@ -4,14 +4,12 @@ import {
   checkSignedIn,
   onAuthStateChanged,
   getDocument,
-} from "./FireStoreUtil.js";
-import {
   doc,
   getDoc,
   updateDoc,
   deleteDoc,
   arrayRemove,
-} from "firebase/firestore";
+} from "./FireStoreUtil.js";
 
 let currentUser = null;
 

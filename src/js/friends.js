@@ -26,10 +26,9 @@ let currentUser = null;
 let currentUserData = null;
 
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    initFriendsPage();
-  }
+  currentUser = user;
+  initFriendsPage();
+  Events.emit("AUTH_STATE_CHANGE", user);
 });
 
 /* Tab Management */

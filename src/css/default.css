@@ -23,7 +23,7 @@ body {
 
   margin: 0px;
   padding: 0px;
-  background-color: var(--theme-value);
+  background: var(--theme-value);
   font-family: "Amble-Regular", Arial;
   color: var(--theme-text);
 }
