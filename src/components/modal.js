@@ -69,7 +69,7 @@ class Modal extends HTMLElement {
           border-radius: 12px 12px 0 0;
           padding: 5px 0px;
           background: var(--theme-value-dark);
-          font-size: clamp(10px, 32px, 3vw);
+          font-size: clamp(26px, 32px, 3vw);
           margin-left: auto;
         }
         .clustr-modal .title span {
@@ -106,9 +106,9 @@ class Modal extends HTMLElement {
           padding: 20px 20px 40px 20px;
           border-radius: 0 0 12px 12px;
           background: var(--theme-value);
-          font-size: calc(clamp(10px, 35px, 3vw) / 1.8);
+          font-size: calc(clamp(22px, 35px, 3vw) / 1.8);
         }
-        .clustr-modal .content p {
+        .clustr-modal .content p:first-child {
           font-family: "Amble-Regular", Arial;
           font-weight: normal;
           margin: 0px;
@@ -135,11 +135,34 @@ class Modal extends HTMLElement {
           border-radius: 12px;
           font-family: "Amble-Bold", Arial;
           font-weight: bold;
-          font-size: calc(clamp(10px, 35px, 3vw) / 1.8);
+          font-size: calc(clamp(22px, 35px, 3vw) / 1.8);
           transition: transform 150ms ease-in-out;
         }
         .clustr-modal .button-row button:hover {
           transform: scale(1.1);
+        }
+
+        .clustr-modal button.btn {
+          padding: 8px 15px;
+          background: #fff;
+          color: #000;
+          filter: var(--theme-button-filter);
+          font-family: "Amble-Bold", Arial;
+          font-weight: bold;
+          font-size: 75%;
+          border-radius: 12px;
+          border: none;
+          transition: transform 150ms ease-in-out;
+          margin: 0 5px;
+          pointer-events: all;
+          cursor: pointer;
+        }
+        .clustr-modal button.btn:not([blocked="true"]):hover {
+          transform: scale(1.1);
+        }
+        .clustr-modal button.btn[blocked="true"] {
+          pointer-events: none;
+          opacity: .5;
         }
       </style>
       <div class="clustr-modal-holder">

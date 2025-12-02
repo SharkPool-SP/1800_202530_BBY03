@@ -5,10 +5,11 @@
 }
 
 body {
-  overflow: hidden;
   --map-zoom: scale(3);
   user-select: none;
   -moz-user-select: none;
+  overflow: hidden !important;
+  touch-action: none !important;
 }
 
 .map-dragger {
@@ -16,6 +17,7 @@ body {
   height: 100vh;
   background: transparent;
   cursor: grab;
+  touch-action: auto !important;
 }
 .map-dragger:active {
   cursor: grabbing;
@@ -26,12 +28,24 @@ body {
   background-color: var(--theme-value-dark);
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   z-index: -1;
   left: 0px;
   top: 0px;
 }
+.pin-display {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  left: 0px;
+  top: 0px;
+  pointer-events: none;
+}
 
-.map-display div {
+.pin-display div.map-container,
+.map-display div.map-container {
   width: 100%;
   transform-origin: 0 0;
   transform: var(--map-zoom);
@@ -40,6 +54,11 @@ body {
   top: 0px;
 }
 
+.pin-display img {
+  opacity: 0;
+  width: 100%;
+  position: relative;
+}
 .map-display img {
   filter: var(--theme-hue-map);
   width: 100%;

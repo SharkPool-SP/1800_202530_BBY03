@@ -10,7 +10,7 @@ class ProfileNav extends HTMLElement {
     this.innerHTML = `
       <style>
         .my-profile {
-          margin: ${hasNav ? "12px 0 0px 80px" : "8px 0 0 8px"};
+          margin: ${hasNav ? "12px 0 0px calc(100vw - 70px)" : "8px 0 0 8px"};
           padding: 2px;
           border-radius: 100%;
           width: 50px;
@@ -33,20 +33,12 @@ class ProfileNav extends HTMLElement {
           height: 50px;
         }
       </style>
-      <a class="my-profile" href="#account.html" title="My Profile">
+      <a class="my-profile" href="account.html" title="My Profile">
         <img src="images/default-avatar.svg" draggable="false" alt="pfp" />
       </a>
     `;
 
     const profileDiv = document.querySelector(`a[class="my-profile"]`);
-    profileDiv.addEventListener("click", (e) => {
-      e.stopPropagation();
-
-      if (window.location.href !== "account.html") {
-        window.location.href = "account.html";
-      }
-    });
-
     Events.on("AUTH_STATE_CHANGE", (user) => {
       getDocument("users", user.uid, (data) => {
         // apply PFP

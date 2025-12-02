@@ -100,11 +100,13 @@ async function loadFriends() {
       friendsList.innerHTML = "";
       emptyState.style.display = "block";
       friendCount.textContent = "0";
+      friendCount.setAttribute("empty", "true");
       return;
     }
 
     friendsList.innerHTML = "";
     friendCount.textContent = currentUserData.friends.length;
+    friendCount.setAttribute("empty", currentUserData.friends.length === 0);
 
     // Load each friend's data
     for (const friendId of currentUserData.friends) {
@@ -129,7 +131,9 @@ function createFriendCard(friendId, friendData) {
 
   const avatar = document.createElement("img");
   avatar.className = "friend-avatar";
-  avatar.src = friendData.pfp || "images/default-avatar.svg";
+  avatar.src = friendData.pfp.endsWith(".svg")
+    ? friendData.pfp
+    : "data:image/png;base64," + friendData.pfp;
   avatar.alt = friendData.userName || "Friend";
 
   const info = document.createElement("div");
@@ -167,7 +171,15 @@ function createFriendCard(friendId, friendData) {
 
 /* Remove Friend */
 async function removeFriend(friendId) {
-  if (!confirm("Are you sure you want to remove this friend?")) return;
+  if (
+    !(await showClustrModal(
+      "Hold On!",
+      "<p>Are you sure you want to remove this friend?</p>",
+      true
+    ))
+  ) {
+    return;
+  }
 
   try {
     // Remove from current user's friends
@@ -181,10 +193,13 @@ async function removeFriend(friendId) {
     });
 
     loadFriends();
-    alert("Friend removed successfully!");
+    showClustrModal("Success!", "<p>Friend removed successfully!</p>");
   } catch (error) {
     console.error("Error removing friend:", error);
-    alert("Failed to remove friend. Please try again.");
+    showClustrModal(
+      "Errpr!",
+      "<p>Failed to remove friend. Please try again.</p>"
+    );
   }
 }
 
@@ -216,9 +231,11 @@ async function loadRequests() {
     if (incomingSnapshot.empty) {
       incomingEmpty.style.display = "block";
       requestCount.textContent = "0";
+      requestCount.setAttribute("empty", "true");
     } else {
       incomingEmpty.style.display = "none";
       requestCount.textContent = incomingSnapshot.size;
+      requestCount.setAttribute("empty", incomingSnapshot.size === 0);
 
       for (const requestDoc of incomingSnapshot.docs) {
         const requestData = requestDoc.data();
@@ -278,7 +295,9 @@ function createRequestCard(requestId, userId, userData, type) {
 
   const avatar = document.createElement("img");
   avatar.className = "request-avatar";
-  avatar.src = userData.pfp || "images/default-avatar.svg";
+  avatar.src = userData.pfp.endsWith(".svg")
+    ? userData.pfp
+    : "data:image/png;base64," + userData.pfp;
   avatar.alt = userData.userName || "User";
 
   const info = document.createElement("div");
@@ -346,10 +365,12 @@ async function acceptRequest(requestId, senderId) {
 
     loadRequests();
     loadFriends();
-    alert("Friend request accepted!");
   } catch (error) {
     console.error("Error accepting request:", error);
-    alert("Failed to accept request. Please try again.");
+    showClustrModal(
+      "Error!",
+      "<p>Failed to accept request. Please try again.</p>"
+    );
   }
 }
 
@@ -358,10 +379,12 @@ async function declineRequest(requestId) {
   try {
     await deleteDoc(doc(db, "friendRequests", requestId));
     loadRequests();
-    alert("Friend request declined.");
   } catch (error) {
     console.error("Error declining request:", error);
-    alert("Failed to decline request. Please try again.");
+    showClustrModal(
+      "Error!",
+      "<p>Failed to decline request. Please try again.</p>"
+    );
   }
 }
 
@@ -370,10 +393,13 @@ async function cancelRequest(requestId) {
   try {
     await deleteDoc(doc(db, "friendRequests", requestId));
     loadRequests();
-    alert("Friend request cancelled.");
+    showClustrModal("Success!", "<p>Friend request cancelled.</p>");
   } catch (error) {
     console.error("Error cancelling request:", error);
-    alert("Failed to cancel request. Please try again.");
+    showClustrModal(
+      "Error!",
+      "<p>Failed to cancel request. Please try again.</p>"
+    );
   }
 }
 
@@ -448,7 +474,9 @@ async function createSearchCard(userId, userData) {
 
   const avatar = document.createElement("img");
   avatar.className = "search-avatar";
-  avatar.src = userData.pfp || "images/default-avatar.svg";
+  avatar.src = userData.pfp.endsWith(".svg")
+    ? userData.pfp
+    : "data:image/png;base64," + userData.pfp;
   avatar.alt = userData.userName || "User";
 
   const info = document.createElement("div");
@@ -579,12 +607,15 @@ async function sendFriendRequest(toUserId, button) {
 
     button.textContent = "Request Sent";
     button.className = "btn btn-secondary";
-    alert("Friend request sent!");
+    showClustrModal("Success!", "<p>Friend request sent!</p>");
   } catch (error) {
     console.error("Error sending friend request:", error);
     button.disabled = false;
     button.textContent = "Add Friend";
-    alert("Failed to send friend request. Please try again.");
+    showClustrModal(
+      "Error!",
+      "<p>Failed to send friend request. Please try again.</p>"
+    );
   }
 }
 

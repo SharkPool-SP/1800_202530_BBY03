@@ -16,7 +16,7 @@ class NavBar extends HTMLElement {
           }
         }
         .clustr-navbar {
-          width: 100%;
+          width: 100vw;
           display: flex;
           position: fixed;
           bottom: 0px;

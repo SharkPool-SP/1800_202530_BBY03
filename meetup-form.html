@@ -16,7 +16,7 @@
 
     <header>
       <button class="back-btn">
-        <a href="#meetup-list.html">
+        <a href="meetup-list.html">
           <img draggable="false" alt="Back" src="images/arrow.svg" />
         </a>
       </button>
@@ -35,7 +35,7 @@
               id="meetup-name"
               placeholder="Enter meetup name"
               required
-              maxlength="30"
+              maxlength="25"
             />
           </div>
 
@@ -48,6 +48,17 @@
               required
               maxlength="100"
             />
+            <div class="map-utils">
+              <button class="btn">Open Map</button>
+              <div class="map-status" id="not-selected">
+                <img alt="not selected" src="images/exit.svg" />
+                <span>Not Selected</span>
+              </div>
+              <div class="map-status" style="display: none" id="selected">
+                <img alt="selected" src="images/check.svg" />
+                <span>Selected</span>
+              </div>
+            </div>
           </div>
 
           <div class="form-group">
