@@ -61,11 +61,15 @@ Example:
 ## Limitations and Future Work
 ### Limitations
 
-- ...
+- Auto-Updating Location on the Map was cancelled due to time constraints
+- Notifications sent to meetup organizers for newly joined users were removed due to time constraints
+- Multi Campus support (downtown BCIT) was scrapped due to time contraints
 
 ### Future Work
 
-- ...
+- Allow Clustr to automatically update the users location without having to click on the map
+- Recieve notifications and reminders for upcoming meetups and recent attendees
+- Implement more campuses (notably downtown BCIT campus) to support more students
 
 ---
 
