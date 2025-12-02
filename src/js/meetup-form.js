@@ -91,7 +91,7 @@ function createMeetupCard(meetupId, data) {
     <div class="join-info">
       <h3>${escapeHtml(data.title)}</h3>
       <p><img src="images/location-pin.svg" class="icon" /> ${escapeHtml(
-        data.location
+        data.locationText
       )}</p>
       <p><img src="images/clock.svg" class="icon" /> ${formattedDate}</p>
       <p><img src="images/icon-friends.svg" class="icon" /> ${maxAttendeesDisplay} participant${
@@ -204,7 +204,8 @@ createMeetupForm.addEventListener("submit", async (e) => {
 
   // Get form values
   const title = document.getElementById("meetup-name").value.trim();
-  const location = document.getElementById("meetup-location").value.trim();
+  const location = document.querySelector(`div[class="map-utils"]`).dataset;
+  const locationText = document.getElementById("meetup-location").value.trim();
   const dateTime = document.getElementById("meetup-date").value;
   const details = document.getElementById("meetup-description").value.trim();
   const maxAttendees = parseInt(
@@ -212,7 +213,7 @@ createMeetupForm.addEventListener("submit", async (e) => {
   );
 
   // Validate inputs
-  if (!title || !location || !dateTime) {
+  if (!title || !locationText || !dateTime || !location.x || !location.y) {
     showClustrModal("Warning", "<p>Please fill in all required* fields!</p>");
     return;
   }
@@ -234,8 +235,9 @@ createMeetupForm.addEventListener("submit", async (e) => {
 
     // Create meetup document in Firebase matching your schema
     const meetupData = {
-      title: title.substring(0, 31), // 30 is a reasonable title length
-      location: location,
+      title: title.substring(0, 26), // 25 is a reasonable title length
+      locationText: locationText.substring(0, 101), // 100 is a reasonable location length
+      location: [Number(location.x), Number(location.y)],
       start: dateTime,
       maxAttendees: isNaN(maxAttendees)
         ? -1
@@ -275,6 +277,48 @@ createMeetupForm.addEventListener("submit", async (e) => {
   }
 });
 
+// Handle map selector button
+const mapBtn = createMeetupForm.querySelector(
+  `div[class="map-utils"] button[class="btn"]`
+);
+mapBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // open a fake map for the user to select a location
+  showClustrModal(
+    "Choose Your Meetup Location",
+    `<div style="display: block">
+      <div>Click to set the meetup location</div>
+      <iframe class="map-iframe" src="map.html?inframe=true"/>
+    </div>`
+  );
+
+  const modal = document.querySelector(`clustr-modal button[class="close"]`);
+  window.addEventListener(
+    "message",
+    (event) => {
+      if (event.origin !== window.location.origin) {
+        // unknown origin
+        return;
+      }
+      if (event.data.type === "LOCATION") {
+        // close the modal and decode the response
+        const mapUtilDiv = document.querySelector(`div[class="map-utils"]`);
+        const parsed = event.data.text.split("||");
+        mapUtilDiv.dataset.x = parsed[0];
+        mapUtilDiv.dataset.y = parsed[1];
+
+        // we know the location is valid, so mark it as selected
+        mapUtilDiv.querySelector("#not-selected").style.display = "none";
+        mapUtilDiv.querySelector("#selected").style.display = "";
+        modal.click();
+      }
+    },
+    { once: true }
+  );
+});
+
 // Handle cancel button
 const cancelBtn = createMeetupForm.querySelector('button[type="reset"]');
 cancelBtn.addEventListener("click", async (e) => {
@@ -287,13 +331,8 @@ cancelBtn.addEventListener("click", async (e) => {
     )
   ) {
     createMeetupForm.reset();
+    const mapUtilDiv = document.querySelector(`div[class="map-utils"]`);
+    mapUtilDiv.querySelector("#not-selected").style.display = "";
+    mapUtilDiv.querySelector("#selected").style.display = "none";
   }
 });
-
-// Back button functionality
-const backBtn = document.querySelector(".back-btn");
-if (backBtn) {
-  backBtn.addEventListener("click", () => {
-    window.location.href = "meetup-list.html";
-  });
-}

@@ -164,6 +164,36 @@ header .back-btn img {
   margin-top: 20px;
 }
 
+.map-utils {
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.map-utils .map-status {
+  margin-left: 15px;
+  border: 2px solid var(--theme-value-light);
+  background: var(--theme-value);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.map-utils .map-status img {
+  width: 30px;
+  margin-right: 10px;
+  filter: var(--theme-hue);
+}
+.map-iframe {
+  width: 60vw;
+  height: 50vh;
+  border: solid 3px var(--theme-value-light);
+  box-shadow: 0 0 0 3px var(--theme-value-dark);
+  border-radius: 15px;
+  margin: 10px 15px 0 15px;
+}
+
 /* meetup card for join */
 .join-card {
   background: #fff;

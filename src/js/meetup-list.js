@@ -86,7 +86,7 @@ function createMeetupElement(meetupId, data, isCreator) {
   div.innerHTML = `
     <div class="meetup-info">
       <h3>${escapeHtml(data.title)}</h3>
-      <p><strong>Location:</strong> ${escapeHtml(data.location)}</p>
+      <p><strong>Location:</strong> ${escapeHtml(data.locationText)}</p>
       <p><strong>Time:</strong> ${formattedDate}</p>
       <p><strong>Attendees:</strong> ${data.members}${maxAttendeesDisplay}</p>
       ${
@@ -293,12 +293,4 @@ function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
-}
-
-// Back button functionality
-const backBtn = document.querySelector(".back-btn");
-if (backBtn) {
-  backBtn.addEventListener("click", () => {
-    window.location.href = "map.html";
-  });
 }

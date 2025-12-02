@@ -12,11 +12,29 @@ import {
 /* Firebase Events */
 checkSignedIn();
 
+// if we are loaded in an iframe, this means we should simplify the layout
+// this is really only used for the meetup form page since I dont want to make
+// an entirely new page for similar code
+let isNormal = true;
+if (new URLSearchParams(window.location.search).get("inframe") === "true") {
+  isNormal = false;
+
+  // clean up the dom
+  document.querySelector("clustr-navbar").remove();
+  document.querySelector("profile-nav").remove();
+
+  const updateLocBtn = document.querySelector(
+    `div[class="map-controls"] div[class="update-location"]`
+  );
+  updateLocBtn.style.marginTop = "90vh";
+  updateLocBtn.firstElementChild.textContent = "Set Meetup Location";
+}
+
 let thisUser, myPin;
 
 onAuthStateChanged(auth, (user) => {
   thisUser = user;
-  unloadPins();
+  if (isNormal) unloadPins();
   Events.emit("AUTH_STATE_CHANGE", user);
 });
 
@@ -79,8 +97,15 @@ function clamp(min, max, value) {
   return Math.min(max, Math.max(min, value));
 }
 
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 function handleSetPin(mapDiv) {
-  if (!storage.map.hasPinnedBefore) {
+  if (!storage.map.hasPinnedBefore && isNormal) {
     showClustrModal(
       "How to Update Your Location",
       `<p>
@@ -106,15 +131,18 @@ function handleSetPin(mapDiv) {
     });
   }
 
-  Events.on("MAP_CLICK", (e) => {
+  Events.on("MAP_CLICK", (pos) => {
     const rect = mapDiv.getBoundingClientRect();
     const zoom = getZoom();
 
-    const localX = (e.clientX - rect.left) / zoom;
-    const localY = (e.clientY - rect.top) / zoom;
+    const unscaledWidth = rect.width / zoom;
+    const unscaledHeight = rect.height / zoom;
 
-    myPin.dataset.px = localX / rect.width;
-    myPin.dataset.py = localY / rect.height;
+    const localX = (pos[0] - rect.left) / zoom;
+    const localY = (pos[1] - rect.top) / zoom;
+
+    myPin.dataset.px = localX / unscaledWidth;
+    myPin.dataset.py = localY / unscaledHeight;
     myPin.style.left = `${localX}px`;
     myPin.style.top = `${localY}px`;
   });
@@ -129,7 +157,7 @@ function handleUpdatePin() {
 }
 
 async function unloadPins() {
-  const pinDiv = document.querySelector(`div[class="pins"]`);
+  const pinDiv = document.querySelector(".pin-display").firstElementChild;
   const mapDiv = document.querySelector(".map-display").firstElementChild;
   const rect = mapDiv.getBoundingClientRect();
 
@@ -140,29 +168,38 @@ async function unloadPins() {
     }
 
     const position = userData.get("location");
-    myPin.style.left = `${position[0] * rect.width}px`;
-    myPin.style.top = `${position[1] * rect.height}px`;
+    const zoom = getZoom();
+    const unscaledWidth = rect.width / zoom;
+    const unscaledHeight = rect.height / zoom;
+    myPin.style.left = `${position[0] * unscaledWidth}px`;
+    myPin.style.top = `${position[1] * unscaledHeight}px`;
     myPin.style.display = "";
   });
 
   // unload users
+  const zoom = getZoom();
   const usersSnapshot = await getDocs(collection(db, "users"));
   getDocument("users", thisUser.uid, (data) => {
     if (!data) return;
     const programMatters = (prog) => prog !== "Other...";
     const myProgram = data.get("program")[0];
     const myProgramMatters = programMatters(myProgram);
+    const myFriends = data.get("friends");
 
     const users = usersSnapshot.docs
       .map((doc) => ({ id: doc.id, ...doc.data() }))
       .filter((user) => {
         // only show initialized profiles of the same program
+        // or friends
         const programMatches =
           myProgramMatters && programMatters(user.program[0])
             ? myProgram === user.program[0]
             : true;
+        const isFriend = myFriends.includes(user.id);
         return (
-          user.id !== thisUser.uid && user.hasInitProfile && programMatches
+          user.id !== thisUser.uid &&
+          user.hasInitProfile &&
+          (programMatches || isFriend)
         );
       });
 
@@ -170,71 +207,183 @@ async function unloadPins() {
       const pfp = user.pfp.endsWith(".svg")
         ? user.pfp
         : "data:image/png;base64," + user.pfp;
-      const pin = createPin(pfp, user.userName, false, pinDiv);
+      const pin = createPin(pfp, user.userName, false, mapDiv);
 
       const position = user.location;
-      pin.style.left = `${position[0] * rect.width}px`;
-      pin.style.top = `${position[1] * rect.height}px`;
-      pinDiv.parentNode.appendChild(pin);
+      const unscaledWidth = rect.width / zoom;
+      const unscaledHeight = rect.height / zoom;
+      pin.style.left = `${position[0] * unscaledWidth}px`;
+      pin.style.top = `${position[1] * unscaledHeight}px`;
     }
   });
 
   // unload meetups
-  return;
   const meetsSnapshot = await getDocs(collection(db, "meetups"));
-  const meets = meetsSnapshot.docs.map((doc) => ({
-    ...doc.data(),
-  }));
+  const meets = meetsSnapshot.docs
+    .map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+    .filter((m) => m.start !== "");
 
   for (const meet of meets) {
-    console.log(meet);
-    const pin = createPin("", meet.userName, true, pinDiv);
+    const pin = createPin("...", meet.title, true, pinDiv);
 
     const position = meet.location;
-    pin.style.left = `${position[0] * rect.width}px`;
-    pin.style.top = `${position[1] * rect.height}px`;
-    pinDiv.parentNode.appendChild(pin);
+    const unscaledWidth = rect.width / zoom;
+    const unscaledHeight = rect.height / zoom;
+    pin.style.left = `${position[0] * unscaledWidth}px`;
+    pin.style.top = `${position[1] * unscaledHeight}px`;
+    attachMeetupListener(pin, meet);
   }
+}
+
+function attachMeetupListener(pin, data) {
+  pin.addEventListener("click", (e) => {
+    // Show modal for meetup details
+    e.stopPropagation();
+    const dateTime = new Date(data.start);
+    const formattedDate = `${dateTime.toDateString()}, ${
+      dateTime.getHours() % 12
+    }:${dateTime.getMinutes()}${dateTime.getHours() > 12 ? "PM" : "AM"}`;
+    const maxDisplay = data.maxAttendees ? `/${data.maxAttendees}` : "";
+
+    showClustrModal(
+      "Meetup Details",
+      `<p>
+        <strong style="font-size: 1.5em; border-bottom: solid 4px var(--theme-value-light);">
+          ${escapeHtml(data.title)}
+        </strong>
+        <br/><br/>
+        ${
+          data.owner
+            ? `<span><b>Organizer:</b> ${escapeHtml(data.owner)}</span>`
+            : ""
+        }
+        <br/>
+        <span><b>Attendees:</b> ${data.members}${maxDisplay}</span>
+        <br/><br/>
+        <span><b>Location:</b> ${escapeHtml(data.locationText)}</span>
+        <br/>
+        <span><b>Time:</b> ${formattedDate}</span>
+        <br/><br/>
+        ${
+          data.details
+            ? `<span><b>Description:</b><br/>${escapeHtml(data.details)}</span>`
+            : ""
+        }
+        <br/><br/>
+        <button id="join" class="btn">Join Meetup</button>
+        <button id="leave" class="btn">Leave Meetup</button>
+      </p>`
+    );
+
+    // Make quick-join/leave buttons functional
+    const joinBtn = document.querySelector(
+      `.clustr-modal button.btn[id="join"]`
+    );
+    const leaveBtn = document.querySelector(
+      `.clustr-modal button.btn[id="leave"]`
+    );
+
+    const updateState = (isInit) => {
+      // button state
+      if (data.attendees.includes(thisUser.uid)) {
+        joinBtn.setAttribute("blocked", "true");
+        leaveBtn.removeAttribute("blocked");
+      } else {
+        leaveBtn.setAttribute("blocked", "true");
+        joinBtn.removeAttribute("blocked");
+      }
+
+      // push changes to firebase
+      if (isInit) return;
+      setDocument("meetups", data.id, {
+        attendees: data.attendees,
+      });
+    };
+    updateState(true);
+
+    joinBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      data.attendees.push(thisUser.uid);
+      updateState(false);
+    });
+    leaveBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const index = data.attendees.indexOf(thisUser.uid);
+      if (index === 0) {
+        // the creator is leaving their own meetup, dont allow
+        alert(
+          "You are the creator of this meetup! Go to the 'My Meetups' page to delete this Meetup."
+        );
+        return;
+      }
+      data.attendees.splice(index, 1);
+      updateState(false);
+    });
+  });
 }
 
 /* Main Initialization */
 function initAll() {
+  const pinDiv = document.querySelector(".pin-display").firstElementChild;
   const mapDiv = document.querySelector(".map-display").firstElementChild;
   const mapDragger = document.querySelector(".map-dragger");
 
   /* 🖱️ Map Dragger */
-  mapDragger.addEventListener("mousedown", (e) => {
+  // Mobile Development SUCKS
+  // Is it that hard to use the same event names?
+  function dragStart(e) {
+    e.preventDefault();
     e.stopPropagation();
 
+    const isTouch = e.type === "touchstart";
+    const startX = isTouch ? e.touches[0].clientX : e.clientX;
+    const startY = isTouch ? e.touches[0].clientY : e.clientY;
     const downTime = Date.now();
-    const startX = e.clientX;
-    const startY = e.clientY;
+
     const mapPos = getMapPosition(mapDiv);
     const bounds = getMapBounds(mapDiv);
 
-    const mouseMoveEvent = (e) => {
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
+    const moveEvent = (e) => {
+      const x = isTouch ? e.touches[0].clientX : e.clientX;
+      const y = isTouch ? e.touches[0].clientY : e.clientY;
+      const dx = x - startX;
+      const dy = y - startY;
       mapDiv.style.left =
         clamp(bounds.left, bounds.right, mapPos[0] + dx) + "px";
       mapDiv.style.top =
         clamp(bounds.top, bounds.bottom, mapPos[1] + dy) + "px";
+      pinDiv.style.left = mapDiv.style.left;
+      pinDiv.style.top = mapDiv.style.top;
     };
 
-    const mouseUpEvent = (e) => {
+    const dragEnd = (e) => {
       e.stopPropagation();
-      mapDragger.removeEventListener("mouseup", mouseUpEvent);
-      mapDragger.removeEventListener("mousemove", mouseMoveEvent);
+      mapDragger.removeEventListener(isTouch ? "touchend" : "mouseup", dragEnd);
+      mapDragger.removeEventListener(
+        isTouch ? "touchmove" : "mousemove",
+        moveEvent
+      );
 
       if (Date.now() - downTime < 200) {
         // likely a click event instead of drag
-        Events.emit("MAP_CLICK", e);
+        Events.emit("MAP_CLICK", [startX, startY]);
       }
     };
 
-    mapDragger.addEventListener("mouseup", mouseUpEvent);
-    mapDragger.addEventListener("mousemove", mouseMoveEvent);
-  });
+    mapDragger.addEventListener(isTouch ? "touchend" : "mouseup", dragEnd);
+    mapDragger.addEventListener(
+      isTouch ? "touchmove" : "mousemove",
+      moveEvent,
+      {
+        passive: false,
+      }
+    );
+  }
+  mapDragger.addEventListener("touchstart", dragStart, { passive: false });
+  mapDragger.addEventListener("mousedown", dragStart);
 
   /* 🔍 Zoom Controls */
   const zoomDiv = document.querySelector(".zoom-controls");
@@ -265,6 +414,8 @@ function initAll() {
     document.body.style.setProperty("--map-zoom", `scale(${newZoom})`);
     mapDiv.style.left = mapPos[0] * (newZoom / currentZoom) + "px";
     mapDiv.style.top = mapPos[1] * (newZoom / currentZoom) + "px";
+    pinDiv.style.left = mapDiv.style.left;
+    pinDiv.style.top = mapDiv.style.top;
     storage.map.zoom = newZoom;
     updateLocalStore();
   });
@@ -273,20 +424,35 @@ function initAll() {
   const updateLocBtn = document.querySelector(".update-location button");
   updateLocBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (e.target.id === "update") {
-      e.target.textContent = "Save My Location";
-      e.target.id = "set";
-      handleSetPin(mapDiv);
+    if (isNormal) {
+      if (e.target.id === "update") {
+        e.target.textContent = "Save My Location";
+        e.target.id = "set";
+        handleSetPin(mapDiv);
+      } else {
+        e.target.textContent = "Update My Location";
+        e.target.id = "update";
+        handleUpdatePin();
+      }
     } else {
-      e.target.textContent = "Update My Location";
-      e.target.id = "update";
-      handleUpdatePin();
+      // callback to the iframe of our pins location
+      window.parent.postMessage(
+        { type: "LOCATION", text: myPin.dataset.px + "||" + myPin.dataset.py },
+        window.location.origin
+      );
     }
   });
 
-  myPin = createPin("../images/default-avatar.svg", "You", false, mapDiv);
+  myPin = isNormal
+    ? createPin("../images/default-avatar.svg", "You", false, mapDiv)
+    : createPin("...", "", true, mapDiv);
   myPin.id = "me";
-  myPin.style.display = "none";
+  myPin.style.display = isNormal ? "none" : "";
+  if (!isNormal) {
+    myPin.style.left = "25%";
+    myPin.style.top = "50%";
+    handleSetPin(mapDiv);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", initAll);

@@ -191,3 +191,26 @@ h2 {
   transform: scale(1.1);
   margin: 0 15px 25px 15px;
 }
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 25px;
+  }
+  header .back-btn img {
+    width: 65%;
+  }
+  h2 {
+    font-size: 17px;
+  }
+  input[type="text"],
+  textarea,
+  select {
+    font-size: 13px !important;
+  }
+  .theme-btn {
+    font-size: 12px !important;
+  }
+  .account-nav button {
+    font-size: 14px !important;
+  }
+}

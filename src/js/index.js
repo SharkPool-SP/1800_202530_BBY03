@@ -19,7 +19,7 @@ function initAll() {
     or get involved, Clustr helps you find your crowd.
   `.replaceAll("  ", "");
   const abtUsBtn = document.querySelector(
-    `span[id="about-us"][class="nav-link"]`
+    `div[id="about-us"][class="nav-link"]`
   );
   abtUsBtn.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -37,9 +37,7 @@ function initAll() {
     <b>Shirin S</b><br>
     <i>Frontend Developer</i>
   `.replaceAll("  ", "");
-  const ourTeamBtn = document.querySelector(
-    `span[id="team"][class="nav-link"]`
-  );
+  const ourTeamBtn = document.querySelector(`div[id="team"][class="nav-link"]`);
   ourTeamBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     showClustrModal("The Clustr Team", `<p>${ourTeamText}</p>`);
