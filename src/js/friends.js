@@ -618,8 +618,3 @@ async function sendFriendRequest(toUserId, button) {
     );
   }
 }
-
-/* Initialize on page load */
-document.addEventListener("DOMContentLoaded", () => {
-  // Page will be initialized when auth state changes
-});

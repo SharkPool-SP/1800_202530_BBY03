@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="images/logo-color.svg" type="image/svg" />
+    <link rel="icon" href="/images/logo-color.svg" type="image/svg" />
     <title>My Profile</title>
 
     <!-- CSS -->
-    <link href="src/css/default.css" rel="stylesheet" />
-    <link href="src/css/account.css" rel="stylesheet" />
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/account.css" rel="stylesheet" />
   </head>
   <body>
     <header>
       <button class="back-btn" title="Back to Home">
         <a href="map.html">
-          <img draggable="false" alt="Back" src="images/arrow.svg" />
+          <img draggable="false" alt="Back" src="/images/arrow.svg" />
         </a>
       </button>
       <h1>Profile Settings</h1>
@@ -25,9 +25,9 @@
         <h2>Profile Picture</h2>
         <div class="content-holder">
           <div class="profile-pic">
-            <img src="images/default-avatar.svg" draggable="true" alt="pfp" />
+            <img src="/images/default-avatar.svg" draggable="true" alt="pfp" />
             <button>
-              <img draggable="false" alt="upload" src="images/upload.svg" />
+              <img draggable="false" alt="upload" src="/images/upload.svg" />
               <span>Upload Photo</span>
             </button>
             <input type="file" accept="image/png, image/jpeg" />
@@ -41,7 +41,7 @@
         <div class="content-holder">
           <div class="editable-field" id="name">
             <button class="edit">
-              <img draggable="false" alt="edit" src="images/edit.svg" />
+              <img draggable="false" alt="edit" src="/images/edit.svg" />
             </button>
             <input type="text" placeholder="John Smith" />
           </div>
@@ -54,7 +54,7 @@
         <div class="content-holder">
           <div class="editable-field" id="desc">
             <button class="edit">
-              <img draggable="false" alt="edit" src="images/edit.svg" />
+              <img draggable="false" alt="edit" src="/images/edit.svg" />
             </button>
             <textarea placeholder="I am a student at BCIT!"></textarea>
           </div>
@@ -98,9 +98,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="src/js/Events.js"></script>
-    <script src="src/js/account.js" type="module"></script>
-    <script src="src/components/navbar.js" type="module"></script>
-    <script src="src/components/modal.js" type="module"></script>
+    <script src="/src/js/Events.js" type="module"></script>
+    <script src="/src/js/account.js" type="module"></script>
+    <script src="/src/components/navbar.js" type="module"></script>
+    <script src="/src/components/modal.js" type="module"></script>
   </body>
 </html>

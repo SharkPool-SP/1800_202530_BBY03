@@ -1,13 +1,12 @@
 # Clustr
 
-
 ## Overview
+
 Clustr is a client-side JavaScript web application tailored to help BCIT students join together and connect. The app allows you to participate in student-lead meetups, add friends, and to locate peers on the campus map.
 
 Developed for the COMP 1800 course, this project applies User-Centred Design practices and agile project management, and demonstrates integration with Firebase backend services for storing user favorites.
 
 ---
-
 
 ## Features
 
@@ -19,10 +18,10 @@ Developed for the COMP 1800 course, this project applies User-Centred Design pra
 
 ---
 
-
 ## Technologies Used
 
 Example:
+
 - **Frontend**: HTML, CSS, JavaScript
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Backend**: Firebase for hosting
@@ -30,10 +29,9 @@ Example:
 
 ---
 
-
 ## Usage
 
-1. Open your browser and visit `...`.
+1. Open your browser and visit `https://clustr-166e3.web.app/`.
 2. Sign-up or login to your account.
 3. Customize your profile and program.
 4. Create/view/join meetups shown on the campus map.
@@ -41,14 +39,13 @@ Example:
 
 ---
 
-
 ## Contributors
+
 - **Brihad Sidda** - BCIT CST Student with a passion for outdoor adventures and user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
-- **Shirin Sajeeb** - BCIT CST  student passionate about coding and creative project.
-- **Vicente G** *(SharkPool-SP)*- BCIT CST Student, 3+ years of Web Dev experience. Fun Fact: Likes camping and catching frogs.
+- **Shirin Sajeeb** - BCIT CST student passionate about coding and creative project.
+- **Vicente G** _(SharkPool-SP)_- BCIT CST Student, 3+ years of Web Dev experience. Fun Fact: Likes camping and catching frogs.
 
 ---
-
 
 ## Acknowledgments
 
@@ -57,8 +54,8 @@ Example:
 
 ---
 
-
 ## Limitations and Future Work
+
 ### Limitations
 
 - Auto-Updating Location on the Map was cancelled due to time constraints
@@ -72,7 +69,6 @@ Example:
 - Implement more campuses (notably downtown BCIT campus) to support more students
 
 ---
-
 
 ## License
 

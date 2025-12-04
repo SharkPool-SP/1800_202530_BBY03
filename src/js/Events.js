@@ -3,7 +3,7 @@
 
   Emit custom events. Runs like a class but public to the window.
 */
-window.Events = {
+globalThis.Events = {
   eventCache_: new Map(),
 
   /**

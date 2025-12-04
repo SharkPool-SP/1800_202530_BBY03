@@ -81,7 +81,8 @@ function createMeetupElement(meetupId, data, isCreator) {
   const formattedDate = formatDateTime(dateTime);
 
   // Calculate max attendees (if not set, show just current members)
-  const maxAttendeesDisplay = data.maxAttendees ? `/${data.maxAttendees}` : "";
+  const maxAttendeesDisplay =
+    data.maxAttendees > -1 ? `/${data.maxAttendees}` : "";
 
   div.innerHTML = `
     <div class="meetup-info">
