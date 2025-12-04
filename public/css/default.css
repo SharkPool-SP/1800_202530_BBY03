@@ -1,13 +1,13 @@
 /* Fonts */
 @font-face {
   font-family: "Amble-Bold";
-  src: url("../../fonts/Amble-Bold.ttf") format("truetype");
+  src: url("../fonts/Amble-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Amble-Regular";
-  src: url("../../fonts/Amble-Regular.ttf") format("truetype");
+  src: url("../fonts/Amble-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

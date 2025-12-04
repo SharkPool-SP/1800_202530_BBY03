@@ -246,7 +246,7 @@ function attachMeetupListener(pin, data) {
     const formattedDate = `${dateTime.toDateString()}, ${
       dateTime.getHours() % 12
     }:${dateTime.getMinutes()}${dateTime.getHours() > 12 ? "PM" : "AM"}`;
-    const maxDisplay = data.maxAttendees ? `/${data.maxAttendees}` : "";
+    const maxDisplay = data.maxAttendees > -1 ? `/${data.maxAttendees}` : "";
 
     showClustrModal(
       "Meetup Details",
